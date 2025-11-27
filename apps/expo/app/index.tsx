@@ -1,10 +1,21 @@
+import { useMemo, useState } from 'react';
+
 import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Button } from '../components/ui';
+import { Badge, Button, Card, TextField, ToggleRow } from '../components/ui';
 
 export default function Home() {
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [betaEnabled, setBetaEnabled] = useState(false);
+  const [name, setName] = useState('Alex');
+
+  const storybookEnabled = useMemo(
+    () => process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true',
+    [],
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shad Expo Studio</Text>
@@ -15,10 +26,74 @@ export default function Home() {
       <Link href="/" style={styles.link}>
         Update this screen with your first component.
       </Link>
-      <View style={styles.buttonRow}>
-        <Button label="Solid button" onPress={() => {}} />
-        <Button label="Outline button" variant="outline" onPress={() => {}} />
-      </View>
+      <Card
+        title="Actions"
+        description="Primary actions and quick links."
+        style={styles.card}
+        footer={
+          <View style={styles.row}>
+            <Badge label="New" tone="info" />
+            <Badge label="Stable" tone="success" />
+          </View>
+        }
+      >
+        <View style={styles.row}>
+          <Button label="Solid button" onPress={() => {}} />
+          <Button label="Outline button" variant="outline" onPress={() => {}} />
+        </View>
+        <View style={styles.row}>
+          <Button
+            label={storybookEnabled ? 'Open Storybook' : 'Enable Storybook'}
+            onPress={() => {
+              if (storybookEnabled) {
+                // Navigate to Storybook route; Expo Router link behaves like a push.
+                try {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (Link as any).push?.('/storybook');
+                } catch {
+                  // Link.push may not exist; silently ignore.
+                }
+              }
+            }}
+            variant={storybookEnabled ? 'solid' : 'outline'}
+            disabled={!storybookEnabled}
+          />
+          <Badge
+            label={
+              storybookEnabled
+                ? 'Storybook enabled'
+                : 'Set EXPO_PUBLIC_STORYBOOK_ENABLED=true'
+            }
+            tone={storybookEnabled ? 'success' : 'warning'}
+          />
+        </View>
+      </Card>
+
+      <Card
+        title="Profile"
+        description="Inline form controls."
+        style={styles.card}
+      >
+        <TextField
+          label="Display name"
+          value={name}
+          onChangeText={setName}
+          helperText="Shown in your components"
+          autoCapitalize="words"
+        />
+        <ToggleRow
+          label="Notifications"
+          description="Send me component review updates"
+          value={notificationsEnabled}
+          onValueChange={setNotificationsEnabled}
+        />
+        <ToggleRow
+          label="Beta features"
+          description="Try experimental shad components"
+          value={betaEnabled}
+          onValueChange={setBetaEnabled}
+        />
+      </Card>
       <StatusBar style="auto" />
     </View>
   );
@@ -48,9 +123,14 @@ const styles = StyleSheet.create({
     color: '#a5b4fc',
     fontWeight: '600',
   },
-  buttonRow: {
-    marginTop: 32,
-    gap: 12,
+  card: {
     width: '100%',
+    marginTop: 20,
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 12,
+    flexWrap: 'wrap',
+    alignItems: 'center',
   },
 });

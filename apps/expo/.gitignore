@@ -1,0 +1,30 @@
+node_modules/
+.yarn/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+# macOS
+.DS_Store
+# ignore IOS build folder
+ios/
+# ignore Android build folder
+android/
+# ignore eas.json
+eas.json
+# ignore google-services.json
+google-services.json
+#ignore .env
+.env
+# ignore expo-env.d.ts
+expo-env.d.ts
+# ignore pnpm-lock.yaml
+pnpm-lock.yaml
+# @end expo-cli
+/.idea/

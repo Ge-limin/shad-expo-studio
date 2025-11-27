@@ -1,0 +1,51 @@
+{
+  "name": "shad-expo-studio",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "author": {
+    "name": "Shad Expo Studio"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "babel-plugin-react-compiler": "19.1.0-rc.3"
+    }
+  },
+  "scripts": {
+    "preinstall": "node tooling/check-env.js",
+    "turbo": "turbo",
+    "postinstall": "manypkg fix",
+    "build": "turbo build --cache-dir=.turbo",
+    "clean": "git clean -xdf node_modules dist .next",
+    "clean:workspaces": "turbo clean",
+    "dev": "cross-env FORCE_COLOR=1 turbo dev --parallel",
+    "format": "turbo format --cache-dir=.turbo --continue -- --cache --cache-location=\"node_modules/.cache/.prettiercache\" --ignore-path=\"../../.gitignore\"",
+    "format:fix": "turbo format --cache-dir=.turbo --continue -- --write --cache --cache-location=\"node_modules/.cache/.prettiercache\" --ignore-path=\"../../.gitignore\"",
+    "lint": "turbo lint --cache-dir=.turbo --affected --continue -- --cache --cache-location \"node_modules/.cache/.eslintcache\" && manypkg check",
+    "lint:fix": "turbo lint --cache-dir=.turbo --affected --continue -- --fix --cache --cache-location \"node_modules/.cache/.eslintcache\" && manypkg fix",
+    "lint:all": "turbo lint --cache-dir=.turbo --continue -- --cache --cache-location \"node_modules/.cache/.eslintcache\" && manypkg check",
+    "typecheck": "turbo typecheck --affected --cache-dir=.turbo",
+    "typecheck:all": "turbo typecheck --cache-dir=.turbo",
+    "test": "turbo test --cache-dir=.turbo",
+    "ios": "pnpm --filter expo-app ios",
+    "android": "pnpm --filter expo-app android",
+    "web": "pnpm --filter expo-app web",
+    "update": "pnpm update -r",
+    "syncpack:list": "pnpm dlx syncpack list-mismatches",
+    "syncpack:fix": "pnpm dlx syncpack fix-mismatches"
+  },
+  "prettier": "@studio/prettier-config",
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "@manypkg/cli": "^0.25.1",
+    "cross-env": "^10.0.0",
+    "prettier": "^3.6.2",
+    "turbo": "2.5.8",
+    "typescript": "^5.9.3"
+  }
+}

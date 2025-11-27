@@ -1,0 +1,26 @@
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+# macOS
+.DS_Store
+# ignore IOS build folder
+ios/
+# ignore Android build folder
+android/
+
+# ignore eas.json
+eas.json
+
+# env
+.env
+
+expo-env.d.ts
+# @end expo-cli

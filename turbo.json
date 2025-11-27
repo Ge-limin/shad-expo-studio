@@ -1,0 +1,69 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDependencies": [
+    "**/.env"
+  ],
+  "ui": "stream",
+  "globalEnv": [
+    "EXPO_PUBLIC_APP_ENV",
+    "EXPO_PUBLIC_APP_NAME",
+    "EXPO_PUBLIC_STORYBOOK_ENABLED"
+  ],
+  "tasks": {
+    "topo": {
+      "dependsOn": [
+        "^topo"
+      ]
+    },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "next-env.d.ts"
+      ]
+    },
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "format": {
+      "outputs": [
+        "node_modules/.cache/.prettiercache"
+      ],
+      "outputLogs": "new-only"
+    },
+    "lint": {
+      "dependsOn": [
+        "^topo"
+      ],
+      "outputs": [
+        "node_modules/.cache/.eslintcache"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "^topo"
+      ],
+      "outputs": [
+        "node_modules/.cache/tsbuildinfo.json"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^topo"
+      ]
+    },
+    "clean": {
+      "cache": false
+    },
+    "//#clean": {
+      "cache": false
+    },
+    "license#dev": {
+      "outputLogs": "errors-only"
+    }
+  }
+}

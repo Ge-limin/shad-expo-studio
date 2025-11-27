@@ -1,0 +1,9 @@
+.turbo
+.next
+node_modules
+dist
+build
+coverage
+.expo
+ios
+android

@@ -1,0 +1,16 @@
+.DS_Store
+node_modules
+.turbo
+.next
+dist
+build
+coverage
+.expo
+ios
+android
+.env.local
+.env
+*.log
+.idea
+*.tsbuildinfo
+.cache

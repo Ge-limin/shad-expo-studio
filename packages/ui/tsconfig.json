@@ -1,0 +1,16 @@
+{
+  "extends": "@studio/tsconfig/base.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "paths": {
+      "~/components": ["./src/shadcn/*"],
+      "~/utils": ["./src/lib/utils"],
+      "~/lib/*": ["./src/lib/*"],
+      "~/hooks": ["./src/hooks"],
+      "~/ui": ["./src/shadcn/*"],
+      "~/ui/*": ["./src/shadcn/*"]
+    }
+  },
+  "include": ["*.ts", "src"],
+  "exclude": ["node_modules"]
+}

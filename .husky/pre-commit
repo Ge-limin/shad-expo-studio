@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -e
+
+pnpm format:fix
+git update-index --again

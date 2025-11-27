@@ -1,0 +1,9 @@
+packages:
+  - apps/*
+  - packages/**
+  - tooling/*
+  - '!**/.cache/**'
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - '@sentry/cli'

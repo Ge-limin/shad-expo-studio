@@ -21,7 +21,9 @@
     "build:all": "pnpm run build:ios && pnpm run build:android && pnpm run build:web",
     "storybook-generate": "sb-rn-get-stories",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "storybook:fix-requires": "node scripts/fix-storybook-requires.js",
+    "storybook-generate:fixed": "pnpm storybook-generate && pnpm storybook:fix-requires"
   },
   "prettier": "@studio/prettier-config",
   "jest": {

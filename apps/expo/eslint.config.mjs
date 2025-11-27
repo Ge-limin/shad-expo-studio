@@ -4,7 +4,7 @@ import storybook from "eslint-plugin-storybook";
 import eslintConfigBase from '@studio/eslint-config/base.js';
 
 export default [...eslintConfigBase, {
-  ignores: ['**/node_modules', 'dist', 'build', 'ios', 'android'],
+  ignores: ['**/node_modules', 'dist', 'build', 'ios', 'android', '**/.rnstorybook/storybook.requires.ts'],
   languageOptions: {
     globals: {
       __DEV__: true,

@@ -16,8 +16,6 @@ const meta = {
   args: {
     title: 'Card title',
     description: 'Supporting copy that fits the shad style',
-    children: <Text style={{ color: '#e2e8f0' }}>Body content goes here.</Text>,
-    footer: <Button label="Call to action" onPress={() => {}} />,
   },
 } satisfies Meta<typeof Card>;
 
@@ -25,10 +23,21 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => (
+    <Card
+      {...args}
+      footer={<Button label="Call to action" onPress={() => {}} />}
+    >
+      <Text style={{ color: '#e2e8f0' }}>Body content goes here.</Text>
+    </Card>
+  ),
+};
 
 export const NoFooter: Story = {
-  args: {
-    footer: undefined,
-  },
+  render: (args) => (
+    <Card {...args}>
+      <Text style={{ color: '#e2e8f0' }}>Body content goes here.</Text>
+    </Card>
+  ),
 };

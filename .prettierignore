@@ -7,3 +7,4 @@ coverage
 .expo
 ios
 android
+**/.rnstorybook/storybook.requires.*

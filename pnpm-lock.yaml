@@ -429,6 +429,9 @@ importers:
 
   tooling/eslint:
     dependencies:
+      '@eslint/js':
+        specifier: ^9.36.0
+        version: 9.36.0
       '@next/eslint-plugin-next':
         specifier: 15.5.5
         version: 15.5.5

@@ -2,6 +2,9 @@
 import '@storybook/addon-ondevice-actions/register';
 import '@storybook/addon-ondevice-controls/register';
 import { View, start, updateView } from '@storybook/react-native';
+import reactNativePreview from '@storybook/react-native/preview';
+
+import previewAnnotations from './preview';
 
 const normalizedStories = [
   {
@@ -10,7 +13,7 @@ const normalizedStories = [
     files: '**/*.stories.?(ts|tsx|js|jsx)',
     importPathMatcher:
       /^\.(?:(?:^|\/|(?:(?:(?!(?:^|\/)\.).)*?)\/)(?!\.)(?=.)[^/]*?\.stories\.(?:ts|tsx|js|jsx)?)$/,
-    // @ts-ignore
+    // @ts-expect-error require.context is provided by Storybook/Metro
     req: require.context(
       './stories',
       true,
@@ -24,14 +27,11 @@ declare global {
   var STORIES: typeof normalizedStories;
 }
 
-const annotations = [
-  require('./preview'),
-  require('@storybook/react-native/preview'),
-];
+const annotations = [previewAnnotations, reactNativePreview];
 
 global.STORIES = normalizedStories;
 
-// @ts-ignore
+// @ts-expect-error module.hot is provided by Metro in development
 module?.hot?.accept?.();
 
 if (!global.view) {

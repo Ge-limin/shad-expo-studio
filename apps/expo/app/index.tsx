@@ -4,7 +4,7 @@ import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Badge, Button, Card, TextField, ToggleRow } from '../components/ui';
+import { Badge, Button, Card, TextField, ToggleRow } from '@studio/ui/native';
 
 export default function Home() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);

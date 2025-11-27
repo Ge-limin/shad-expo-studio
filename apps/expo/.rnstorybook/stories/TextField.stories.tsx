@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { View } from 'react-native';
 
-import { TextField } from '../../components/ui';
+import { TextField } from '@studio/ui/native';
 
 const meta = {
   title: 'shad/TextField (native)',

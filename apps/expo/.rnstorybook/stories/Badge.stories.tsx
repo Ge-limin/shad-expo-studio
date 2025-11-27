@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { View } from 'react-native';
 
-import { Badge } from '../../components/ui';
+import { Badge } from '@studio/ui/native';
 
 const meta = {
   title: 'shad/Badge (native)',

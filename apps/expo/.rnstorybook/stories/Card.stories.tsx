@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { Text, View } from 'react-native';
 
-import { Button, Card } from '../../components/ui';
+import { Button, Card } from '@studio/ui/native';
 
 const meta = {
   title: 'shad/Card (native)',

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { View } from 'react-native';
 
-import { ToggleRow } from '../../components/ui';
+import { ToggleRow } from '@studio/ui/native';
 
 const meta = {
   title: 'shad/ToggleRow (native)',

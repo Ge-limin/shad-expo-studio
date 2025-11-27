@@ -34,7 +34,11 @@
     "test": "turbo test --cache-dir=.turbo",
     "ios": "pnpm --filter expo-app ios",
     "android": "pnpm --filter expo-app android",
-    "web": "pnpm --filter expo-app web",
+    "web": "pnpm web:pure",
+    "web:pure": "pnpm --filter expo-app web",
+    "web:storybook": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED=true pnpm --filter expo-app web",
+    "start:storybook": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED=true pnpm --filter expo-app start",
+    "storybook": "pnpm --filter expo-app storybook",
     "update": "pnpm update -r",
     "syncpack:list": "pnpm dlx syncpack list-mismatches",
     "syncpack:fix": "pnpm dlx syncpack fix-mismatches"

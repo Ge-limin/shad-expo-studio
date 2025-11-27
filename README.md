@@ -45,3 +45,7 @@ pnpm lint:fix                       # auto-fix lint issues across packages
 pnpm lint && pnpm typecheck         # run eslint + typescript checks
 pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchman is unavailable)
 ```
+
+### Storybook
+- Native/on-device (Expo bundler): `pnpm start:storybook`, then open the `/storybook` route in the app (Expo Router). Use `pnpm web:pure` to run a pure app web bundle, or `pnpm web:storybook` to include Storybook in the web bundle.
+- Web (browser UI via Vite/React Native Web): `pnpm storybook` from the repo root (opens on port 6006).

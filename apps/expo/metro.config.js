@@ -5,6 +5,7 @@
 // you need to configure the Metro bundler to use the transformer provided by react-native-svg-transformer.
 
 const { getDefaultConfig } = require('expo/metro-config');
+const { withStorybook } = require('@storybook/react-native/metro/withStorybook');
 
 module.exports = (() => {
   const config = getDefaultConfig(__dirname);
@@ -21,5 +22,10 @@ module.exports = (() => {
     sourceExts: [...resolver.sourceExts, 'svg'],
   };
 
-  return config;
+  // Wrap Metro with Storybook so we can serve the on-device UI alongside the app.
+  return withStorybook(config, {
+    // Flip this to true to include Storybook in the bundle; keep false for pure app builds.
+    enabled: process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true',
+    configPath: './.rnstorybook',
+  });
 })();

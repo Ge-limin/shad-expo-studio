@@ -2,6 +2,8 @@ import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Button } from '../components/ui';
+
 export default function Home() {
   return (
     <View style={styles.container}>
@@ -13,6 +15,10 @@ export default function Home() {
       <Link href="/" style={styles.link}>
         Update this screen with your first component.
       </Link>
+      <View style={styles.buttonRow}>
+        <Button label="Solid button" onPress={() => {}} />
+        <Button label="Outline button" variant="outline" onPress={() => {}} />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -41,5 +47,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: '#a5b4fc',
     fontWeight: '600',
+  },
+  buttonRow: {
+    marginTop: 32,
+    gap: 12,
+    width: '100%',
   },
 });

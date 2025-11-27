@@ -74,7 +74,8 @@
     "./native/common/badge": "./src/native/common/badge.tsx",
     "./native/common/card": "./src/native/common/card.tsx",
     "./native/common/text-field": "./src/native/common/text-field.tsx",
-    "./native/common/toggle-row": "./src/native/common/toggle-row.tsx"
+    "./native/common/toggle-row": "./src/native/common/toggle-row.tsx",
+    "./native/screen/tasks": "./src/native/screen/tasks.tsx"
   },
   "typesVersions": {
     "*": {
@@ -119,6 +120,9 @@
       ],
       "native/common/toggle-row": [
         "src/native/common/toggle-row.tsx"
+      ],
+      "native/screen/tasks": [
+        "src/native/screen/tasks.tsx"
       ],
       "*": [
         "src/*"

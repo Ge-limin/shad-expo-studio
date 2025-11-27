@@ -94,6 +94,16 @@ export default function Home() {
           onValueChange={setBetaEnabled}
         />
       </Card>
+
+      <Card
+        title="Pages"
+        description="See a full screen built from the UI package with logic in the app."
+        style={styles.card}
+      >
+        <Link href="/tasks" style={styles.link}>
+          Open the tasks demo page
+        </Link>
+      </Card>
       <StatusBar style="auto" />
     </View>
   );

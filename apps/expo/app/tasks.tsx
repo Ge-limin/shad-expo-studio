@@ -201,7 +201,7 @@ export default function TasksRoute() {
         </Link>
         {storybookEnabled ? (
           <Link href="/storybook" asChild>
-            <Button label="Open Storybook" size="sm" variant="outline" />
+            <Button label="Open Storybook" size="sm" />
           </Link>
         ) : (
           <Button
@@ -247,5 +247,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 12,
     paddingBottom: 4,
+    backgroundColor: '#0b1222',
+    borderBottomColor: '#1f2937',
+    borderBottomWidth: 1,
   },
 });

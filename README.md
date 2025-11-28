@@ -63,6 +63,25 @@ pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchm
 - Native/on-device (Expo bundler): `pnpm start:storybook`, then open the `/storybook` route in the app (Expo Router). Use `pnpm web:pure` to run a pure app web bundle, or `pnpm web:storybook` to include Storybook in the web bundle.
 - Web (browser UI via Vite/React Native Web): `pnpm storybook` from the repo root (opens on port 6006).
 
+### Switching between app shell and Storybook
+- Pure app shell: run `pnpm web:pure` (or `pnpm --filter expo-app start` without setting `EXPO_PUBLIC_STORYBOOK_ENABLED`) to load only the app screens.
+- Storybook-enabled bundle: run `pnpm start:storybook` for native or `pnpm web:storybook` for web. Both set `EXPO_PUBLIC_STORYBOOK_ENABLED=true` before starting the Expo bundler.
+- In the running app, tap the `Open Storybook (/storybook)` button on the home screen Navigation card or in the Tasks screen header. You can also type `/storybook` in the app URL once the Storybook bundle is enabled.
+- Switch modes by restarting the bundler with or without `EXPO_PUBLIC_STORYBOOK_ENABLED`; the Storybook button hides itself when the bundle is pure app-only, so you can confirm the mode visually.
+
+### Visual guide
+- Home shell with jump buttons (tap `Open Storybook (/storybook)` to switch):
+
+  ![Home navigation card showing Tasks and Storybook buttons](apps/expo/assets/screenshots/expo-app-home.png)
+
+- Storybook running at `/storybook` after enabling `EXPO_PUBLIC_STORYBOOK_ENABLED=true`:
+
+  ![Storybook screen reachable from the in-app button or /storybook URL](apps/expo/assets/screenshots/react-native-storybook.png)
+
+- Tasks screen with the same Storybook jump in the header:
+
+  ![Tasks screen header with Storybook button](apps/expo/assets/screenshots/todo-app-shell.png)
+
 ## Development flow (recommended)
 - Build presentational UI in `packages/ui` only (no router/hooks/network/state there). Keep business logic, data, navigation, and side-effects in `apps/expo` route wrappers.
 - For each component/screen, add a `*.examples.tsx` next to it exporting `storyMeta` + `storyExamples` (deterministic data, no side-effects).

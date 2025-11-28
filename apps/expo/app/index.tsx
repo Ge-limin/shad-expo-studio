@@ -39,16 +39,28 @@ export default function Home() {
         description="Jump to Storybook or feature demos."
         style={styles.card}
       >
+        <Text style={styles.navHint}>
+          Use these buttons to jump between the app shell and the Storybook
+          route (/storybook).
+        </Text>
         <View style={styles.row}>
-          <Link href="/tasks" style={styles.link}>
-            Open tasks screen (app logic + UI screen)
+          <Link href="/tasks" asChild>
+            <Button
+              label="Open Tasks (app demo)"
+              size="lg"
+              style={styles.navButton}
+            />
           </Link>
-          <Badge label="Demo" tone="success" />
+          <Badge label="App shell" tone="success" />
         </View>
-        <View style={styles.row}>
+        <View style={[styles.row, styles.storybookRow]}>
           {storybookEnabled ? (
             <Link href="/storybook" asChild>
-              <Button label="Open Storybook" />
+              <Button
+                label="Open Storybook (/storybook)"
+                size="lg"
+                style={styles.navButton}
+              />
             </Link>
           ) : (
             <Button label="Enable Storybook" variant="outline" disabled />
@@ -62,6 +74,10 @@ export default function Home() {
             tone={storybookEnabled ? 'success' : 'warning'}
           />
         </View>
+        <Text style={styles.navHint}>
+          Storybook appears only when EXPO_PUBLIC_STORYBOOK_ENABLED=true. On
+          web, you can also type /storybook in the address bar once enabled.
+        </Text>
       </Card>
 
       <Card
@@ -168,10 +184,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#cbd5e1',
   },
-  link: {
-    color: '#a5b4fc',
-    fontWeight: '700',
-  },
   card: {
     width: '100%',
   },
@@ -188,5 +200,15 @@ const styles = StyleSheet.create({
     color: '#cbd5e1',
     fontSize: 14,
     lineHeight: 20,
+  },
+  navHint: {
+    color: '#cbd5e1',
+    fontSize: 14,
+  },
+  navButton: {
+    flexGrow: 1,
+  },
+  storybookRow: {
+    alignItems: 'center',
   },
 });

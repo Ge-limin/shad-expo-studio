@@ -23,17 +23,17 @@ const variantStyles: Record<
 > = {
   solid: {
     container: {
-      backgroundColor: '#111827',
-      borderColor: '#111827',
+      backgroundColor: '#6366f1',
+      borderColor: '#4f46e5',
     },
     text: { color: '#f8fafc' },
   },
   outline: {
     container: {
-      backgroundColor: 'transparent',
-      borderColor: '#334155',
+      backgroundColor: 'rgba(255, 255, 255, 0.06)',
+      borderColor: '#94a3b8',
     },
-    text: { color: '#0f172a' },
+    text: { color: '#e2e8f0' },
   },
 };
 
@@ -93,9 +93,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minWidth: 120,
     shadowColor: '#0f172a',
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
     shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
   },
   text: {
     fontWeight: '600',

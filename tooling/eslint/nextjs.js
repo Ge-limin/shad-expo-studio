@@ -1,3 +1,4 @@
+// Bridge legacy eslintrc configs (Next.js) into Flat config format.
 import { FlatCompat } from '@eslint/eslintrc';
 
 const compat = new FlatCompat({

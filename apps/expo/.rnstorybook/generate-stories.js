@@ -172,7 +172,7 @@ function main() {
     }
 
     const relWithoutExt = rel.replace(/\.[^.]+$/, '');
-    const moduleSpecifier = `${PACKAGE_PREFIX}/src/native/${relWithoutExt.replace(/\\/g, '/')}`;
+    const moduleSpecifier = `${PACKAGE_PREFIX}/native/${relWithoutExt.replace(/\\/g, '/')}`;
     const relOutputPath = `${relWithoutExt.replace(/\\/g, '/')}.stories.tsx`;
 
     writeStory({ moduleSpecifier, relOutputPath, exampleKeys });

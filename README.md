@@ -1,5 +1,17 @@
 # shad-expo-studio
-A studio that allows designers to build shadcn-style Expo components, and use Storybook for regression testing.
+A studio for designing and shipping shadcn-style components in Expo/React Native with Storybook-backed visual regression.
+
+## What this repo is for
+- We’re in an AI-heavy era where code volume exploded and manual review misses subtle regressions. Visual regression + deterministic stories catch the flakiness and design drift that slip past PR review.
+- Frontend teams are stretched between UI polish and business logic. By separating presentational UI (`packages/ui`) from product code (`apps/expo`), designers (or AI-assisted flows) can own the UI layer while app devs focus on data/flows.
+- Cross-platform (native + web) Storybook coverage is still sparse in the community; this repo offers a concrete pattern for React Native Web + Expo with Chromatic baked in.
+- We want a faster design-to-prod loop: examples drive generated stories, Chromatic locks visuals, and the app shell simply consumes the shared UI.
+- The repo ships with lots of concrete code (components, screens, Storybook setup, scripts) so a coding agent—or anyone new—can follow the conventions and spin up new features or variants quickly without rediscovering patterns.
+
+## How to use it (in short)
+- Install deps (below), then run `pnpm start:storybook` to regenerate stories and open the Storybook-enabled Expo bundle.
+- Edit or add `*.examples.tsx` next to components in `packages/ui/src/native/**` to drive Storybook; rerun `pnpm start:storybook` (or `pnpm --filter expo-app storybook:generate:auto`) to regenerate.
+- For visual regression, add `CHROMATIC_PROJECT_TOKEN` to `apps/expo/.env.local` and run `pnpm chromatic` to upload the web Storybook build.
 
 ## Getting started
 
@@ -63,4 +75,11 @@ pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchm
 - Separation of concerns: `packages/ui` = presentational React Native UI only; `apps/expo/app/*` = Expo Router shells that own state, data fetching, navigation, analytics, and pass props down.
 - UI-first: prioritize stable, deterministic examples for visual regression. Avoid backend SDKs or product-specific logic in the UI package.
 - Storybook auto-gen: examples drive generated stories under `apps/expo/.rnstorybook/stories/auto/**`. Do not edit generated files; change examples and rerun `pnpm start:storybook`.
-- Chromatic (planned): we’ll publish the web Storybook (`pnpm --filter expo-app build-storybook`) to Chromatic for CI visual diffs; keep examples deterministic to make snapshots reliable.
+- Chromatic: CI publishes the web Storybook to Chromatic for visual diffs; keep examples deterministic to make snapshots reliable.
+
+## Chromatic (visual regression)
+- We use Chromatic to publish the web Storybook. CI runs `pnpm chromatic` (which calls the `apps/expo` Chromatic script) on in-repo PRs.
+- Setup for contributors:
+  - Local: put `CHROMATIC_PROJECT_TOKEN=...` in `apps/expo/.env.local` (gitignored). The `pnpm chromatic` script auto-loads `.env.local`/`.env` and passes the token through.
+  - CI: store the same token in your CI secrets as `CHROMATIC_PROJECT_TOKEN`.
+- Run locally from repo root: `pnpm chromatic`. This builds the React Native Web Storybook and uploads snapshots to Chromatic’s CDN using the token from `.env.local`/`.env`.

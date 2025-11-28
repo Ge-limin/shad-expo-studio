@@ -91,6 +91,43 @@ function getStoryExampleKeys(sourceText, filePath) {
   return [];
 }
 
+function getStoryMetaTitle(sourceText, filePath) {
+  const sourceFile = ts.createSourceFile(
+    filePath,
+    sourceText,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TSX,
+  );
+
+  for (const stmt of sourceFile.statements) {
+    if (!ts.isVariableStatement(stmt)) continue;
+    const hasExport = stmt.modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword);
+    if (!hasExport) continue;
+
+    for (const decl of stmt.declarationList.declarations) {
+      const name = decl.name.getText(sourceFile);
+      if (name !== 'storyMeta' || !decl.initializer) continue;
+
+      const initializer = unwrapInitializer(decl.initializer);
+      if (!ts.isObjectLiteralExpression(initializer)) continue;
+
+      for (const prop of initializer.properties) {
+        if (
+          ts.isPropertyAssignment(prop) &&
+          (ts.isIdentifier(prop.name) || ts.isStringLiteral(prop.name)) &&
+          prop.name.text === 'title' &&
+          ts.isStringLiteral(prop.initializer)
+        ) {
+          return prop.initializer.text;
+        }
+      }
+    }
+  }
+
+  return undefined;
+}
+
 function sanitizeExportName(key) {
   const cleaned = key.replace(/[^a-zA-Z0-9]/g, '_');
   const parts = cleaned
@@ -108,9 +145,14 @@ function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
-function writeStory({ moduleSpecifier, relOutputPath, exampleKeys }) {
+function escapeForSingleQuotes(value) {
+  return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+function writeStory({ moduleSpecifier, relOutputPath, exampleKeys, storyMetaTitle }) {
   const fallbackName = relOutputPath.replace(/\.stories\.tsx?$/, '');
   const fallbackTitle = `auto/${fallbackName}`;
+  const metaTitle = storyMetaTitle ?? fallbackTitle;
 
   const exportsBlock = exampleKeys
     .map((key) => {
@@ -138,7 +180,7 @@ const Component =
   (() => null);
 
 const meta: Meta<typeof Component> = {
-  title: storyMeta.title ?? '${fallbackTitle}',
+  title: '${escapeForSingleQuotes(metaTitle)}',
   component: Component,
   decorators: storyMeta.decorators,
   parameters: storyMeta.parameters,
@@ -170,6 +212,7 @@ function main() {
   for (const filePath of files) {
     const rel = path.relative(UI_NATIVE_ROOT, filePath);
     const source = fs.readFileSync(filePath, 'utf8');
+    const storyMetaTitle = getStoryMetaTitle(source, filePath);
     const exampleKeys = getStoryExampleKeys(source, filePath);
     if (exampleKeys.length === 0) {
       console.warn(`Skipping ${rel}: storyExamples missing or not an object literal.`);
@@ -180,7 +223,7 @@ function main() {
     const moduleSpecifier = `${PACKAGE_PREFIX}/native/${relWithoutExt.replace(/\\/g, '/')}`;
     const relOutputPath = `${relWithoutExt.replace(/\\/g, '/')}.stories.tsx`;
 
-    writeStory({ moduleSpecifier, relOutputPath, exampleKeys });
+    writeStory({ moduleSpecifier, relOutputPath, exampleKeys, storyMetaTitle });
   }
 }
 

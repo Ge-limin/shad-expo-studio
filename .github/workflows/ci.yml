@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -36,3 +38,9 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      - name: Publish Storybook to Chromatic
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: pnpm chromatic

@@ -20,7 +20,7 @@ const { withStorybook } = require('@storybook/react-native/metro/withStorybook')
 module.exports = (() => {
   const config = getDefaultConfig(__dirname);
 
-  const { transformer, resolver } = config;
+const { transformer, resolver } = config;
   const originalResolveRequest = resolver?.resolveRequest;
 
   config.transformer = {
@@ -31,6 +31,8 @@ module.exports = (() => {
     ...resolver,
     extraNodeModules: {
       ...resolver?.extraNodeModules,
+      // Provide a Node Buffer polyfill for react-native-svg (pulled in by Storybook).
+      buffer: require.resolve('buffer'),
       // Ensure modules that expect Node's tty (e.g., debug) have a harmless stub.
       tty: path.join(__dirname, 'metro.tty.js'),
       // Force debug to use its browser build, which avoids tty entirely.
@@ -52,6 +54,7 @@ module.exports = (() => {
     ...storybookConfig.resolver,
     extraNodeModules: {
       ...(storybookConfig.resolver?.extraNodeModules ?? {}),
+      buffer: require.resolve('buffer'),
       tty: path.join(__dirname, 'metro.tty.js'),
       debug: require.resolve('debug/src/browser.js'),
     },

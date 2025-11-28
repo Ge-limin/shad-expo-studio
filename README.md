@@ -1,5 +1,17 @@
 # shad-expo-studio
-A studio that allows designers to build shadcn-style Expo components, and use Storybook for regression testing.
+A studio for designing and shipping shadcn-style components in Expo/React Native with Storybook-backed visual regression.
+
+## What this repo is for
+- We’re in an AI-heavy era where code volume exploded and manual review misses subtle regressions. Visual regression + deterministic stories catch the flakiness and design drift that slip past PR review.
+- Frontend teams are stretched between UI polish and business logic. By separating presentational UI (`packages/ui`) from product code (`apps/expo`), designers (or AI-assisted flows) can own the UI layer while app devs focus on data/flows.
+- Cross-platform (native + web) Storybook coverage is still sparse in the community; this repo offers a concrete pattern for React Native Web + Expo with Chromatic baked in.
+- We want a faster design-to-prod loop: examples drive generated stories, Chromatic locks visuals, and the app shell simply consumes the shared UI.
+- The repo ships with lots of concrete code (components, screens, Storybook setup, scripts) so a coding agent—or anyone new—can follow the conventions and spin up new features or variants quickly without rediscovering patterns.
+
+## How to use it (in short)
+- Install deps (below), then run `pnpm start:storybook` to regenerate stories and open the Storybook-enabled Expo bundle.
+- Edit or add `*.examples.tsx` next to components in `packages/ui/src/native/**` to drive Storybook; rerun `pnpm start:storybook` (or `pnpm --filter expo-app storybook:generate:auto`) to regenerate.
+- For visual regression, add `CHROMATIC_PROJECT_TOKEN` to `apps/expo/.env.local` and run `pnpm chromatic` to upload the web Storybook build.
 
 ## Getting started
 

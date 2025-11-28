@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 
+import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { TasksScreen } from '@studio/ui/native';
+import { Button, TasksScreen } from '@studio/ui/native';
 import type { TaskFilter, TaskListItem, TaskSummary } from '@studio/ui/native';
 
 type TaskModel = {
@@ -119,6 +120,10 @@ export default function TasksRoute() {
   const [status, setStatus] = useState<TaskFilter['status']>('all');
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
+  const storybookEnabled = useMemo(
+    () => process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true',
+    [],
+  );
 
   const summary: TaskSummary = useMemo(() => {
     const total = tasks.length;
@@ -190,6 +195,23 @@ export default function TasksRoute() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#0f172a' }}>
+      <View style={styles.nav}>
+        <Link href="/" asChild>
+          <Button label="Home" size="sm" />
+        </Link>
+        {storybookEnabled ? (
+          <Link href="/storybook" asChild>
+            <Button label="Open Storybook" size="sm" variant="outline" />
+          </Link>
+        ) : (
+          <Button
+            label="Storybook disabled"
+            size="sm"
+            variant="outline"
+            disabled
+          />
+        )}
+      </View>
       <TasksScreen
         summary={summary}
         filter={{
@@ -217,3 +239,13 @@ export default function TasksRoute() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  nav: {
+    flexDirection: 'row',
+    gap: 12,
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 4,
+  },
+});

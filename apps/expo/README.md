@@ -30,5 +30,6 @@ pnpm --filter expo-app test
 - Add `*.examples.tsx` next to a UI component/screen in `packages/ui/src/native/**`. Export:
   - `storyMeta`: `{ componentName: string; title?: string; decorators?: Decorator[]; parameters?: object }`
   - `storyExamples`: an object of stories (args/render/argTypes/etc.). Keep them deterministic and UI-only.
-- Run `pnpm --filter expo-app storybook:generate:auto` to emit stories into `.rnstorybook/stories/auto/**`. The Storybook glob already picks them up.
+- Run `pnpm --filter expo-app storybook:generate:auto` to emit stories into `.rnstorybook/stories/auto/**`. The Storybook glob already picks them up. But this command is also auto triggered by husky hooks before commit.
 - Do not edit generated files; change the example source and re-run the generator.
+

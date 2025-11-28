@@ -49,3 +49,18 @@ pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchm
 ### Storybook
 - Native/on-device (Expo bundler): `pnpm start:storybook`, then open the `/storybook` route in the app (Expo Router). Use `pnpm web:pure` to run a pure app web bundle, or `pnpm web:storybook` to include Storybook in the web bundle.
 - Web (browser UI via Vite/React Native Web): `pnpm storybook` from the repo root (opens on port 6006).
+
+## Development flow (recommended)
+- Build presentational UI in `packages/ui` only (no router/hooks/network/state there). Keep business logic, data, navigation, and side-effects in `apps/expo` route wrappers.
+- For each component/screen, add a `*.examples.tsx` next to it exporting `storyMeta` + `storyExamples` (deterministic data, no side-effects).
+- Run `pnpm start:storybook` (root). It regenerates stories and Storybook requires files automatically, then starts Expo with Storybook enabled. Inspect `/storybook` on device/web for quick visual checks.
+- Husky hooks already help:
+  - pre-commit: runs `pnpm --filter expo-app storybook:generate:auto` + `pnpm format:fix`
+  - pre-push: runs `pnpm typecheck` + `pnpm lint:fix`
+- Manual: run `pnpm lint && pnpm typecheck` if you skip hooks or want to check early; `pnpm format:fix` cleans up formatting.
+
+## Design philosophy & tooling
+- Separation of concerns: `packages/ui` = presentational React Native UI only; `apps/expo/app/*` = Expo Router shells that own state, data fetching, navigation, analytics, and pass props down.
+- UI-first: prioritize stable, deterministic examples for visual regression. Avoid backend SDKs or product-specific logic in the UI package.
+- Storybook auto-gen: examples drive generated stories under `apps/expo/.rnstorybook/stories/auto/**`. Do not edit generated files; change examples and rerun `pnpm start:storybook`.
+- Chromatic (planned): we’ll publish the web Storybook (`pnpm --filter expo-app build-storybook`) to Chromatic for CI visual diffs; keep examples deterministic to make snapshots reliable.

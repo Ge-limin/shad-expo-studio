@@ -7,7 +7,7 @@
  *
  * Stories are emitted to .rnstorybook/stories/auto and picked up by Storybook.
  */
-/* eslint-disable no-console */
+/* eslint-disable no-console, @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
@@ -125,11 +125,14 @@ function writeStory({ moduleSpecifier, relOutputPath, exampleKeys }) {
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import * as Components from '@studio/ui/native';
-import { storyMeta, storyExamples } from '${moduleSpecifier}';
+import {
+  storyExamples,
+  storyMeta,
+} from '${moduleSpecifier}';
 
 const componentName = storyMeta.componentName ?? '${fallbackName}';
 const Component =
-  (Components as Record<string, React.ComponentType<any>>)[componentName] ??
+  (Components as Record<string, React.ComponentType<unknown>>)[componentName] ??
   (() => null);
 
 const meta: Meta<typeof Component> = {

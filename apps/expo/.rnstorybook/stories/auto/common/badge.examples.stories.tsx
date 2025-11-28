@@ -44,3 +44,7 @@ export const Warning: Story = {
 export const Danger: Story = {
   ...storyExamples['Danger'],
 };
+
+export const LongLabel: Story = {
+  ...storyExamples['LongLabel'],
+};

@@ -32,3 +32,15 @@ export const Default: Story = {
 export const Error: Story = {
   ...storyExamples['Error'],
 };
+
+export const Disabled: Story = {
+  ...storyExamples['Disabled'],
+};
+
+export const Password: Story = {
+  ...storyExamples['Password'],
+};
+
+export const Multiline: Story = {
+  ...storyExamples['Multiline'],
+};

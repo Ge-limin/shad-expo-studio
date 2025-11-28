@@ -36,4 +36,29 @@ export const storyExamples: Record<string, { args: TextFieldProps }> = {
       value: '',
     },
   },
+  Disabled: {
+    args: {
+      label: 'Disabled',
+      placeholder: 'Cannot edit',
+      value: 'Read-only',
+      editable: false,
+    },
+  },
+  Password: {
+    args: {
+      label: 'Password',
+      placeholder: '••••••',
+      secureTextEntry: true,
+      value: 'secret123',
+    },
+  },
+  Multiline: {
+    args: {
+      label: 'Notes',
+      placeholder: 'Add notes',
+      multiline: true,
+      value: 'Line one\nLine two',
+      inputStyle: { minHeight: 96, textAlignVertical: 'top' },
+    },
+  },
 };

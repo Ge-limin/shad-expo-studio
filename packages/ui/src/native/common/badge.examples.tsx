@@ -34,4 +34,10 @@ export const storyExamples: Record<string, { args: BadgeProps }> = {
   Success: { args: { label: 'Success', tone: 'success' } },
   Warning: { args: { label: 'Warning', tone: 'warning' } },
   Danger: { args: { label: 'Danger', tone: 'danger' } },
+  LongLabel: {
+    args: {
+      label: 'Very long state label to test wrapping',
+      tone: 'info',
+    },
+  },
 };

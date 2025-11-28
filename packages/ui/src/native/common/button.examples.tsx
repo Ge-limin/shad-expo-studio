@@ -44,4 +44,19 @@ export const storyExamples: Record<string, { args: ButtonProps }> = {
   Disabled: {
     args: { label: 'Disabled', disabled: true },
   },
+  CompactOutline: {
+    args: {
+      label: 'Compact outline',
+      variant: 'outline',
+      size: 'sm',
+      style: { minWidth: 0, paddingHorizontal: 10 },
+    },
+  },
+  WithCustomTextStyle: {
+    args: {
+      label: 'Custom text',
+      size: 'md',
+      textStyle: { letterSpacing: 1, textTransform: 'uppercase' },
+    },
+  },
 };

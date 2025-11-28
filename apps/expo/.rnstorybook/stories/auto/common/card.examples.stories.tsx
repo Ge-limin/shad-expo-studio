@@ -32,3 +32,11 @@ export const Basic: Story = {
 export const WithFooter: Story = {
   ...storyExamples['WithFooter'],
 };
+
+export const NoHeader: Story = {
+  ...storyExamples['NoHeader'],
+};
+
+export const LongContent: Story = {
+  ...storyExamples['LongContent'],
+};

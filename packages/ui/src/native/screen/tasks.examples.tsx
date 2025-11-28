@@ -236,4 +236,62 @@ export const storyExamples = {
       );
     },
   },
+  EmptyState: {
+    render: function Render() {
+      return (
+        <TasksScreen
+          summary={{ total: 0, completed: 0, dueSoon: 0, overdue: 0 }}
+          filter={{
+            query: '',
+            status: 'all',
+            onChangeQuery: () => {},
+            onChangeStatus: () => {},
+          }}
+          tasks={[]}
+          newTask={{
+            title: '',
+            note: '',
+            onChangeTitle: () => {},
+            onChangeNote: () => {},
+            onSubmit: () => {},
+          }}
+          onToggleTask={() => {}}
+          onClearCompleted={() => {}}
+        />
+      );
+    },
+  },
+  AllCompleted: {
+    render: function Render() {
+      const tasksCompleted = baseTasks.map((task) => ({
+        ...task,
+        completed: true,
+        dueLabel: task.dueLabel?.includes('overdue')
+          ? task.dueLabel
+          : 'Completed',
+      }));
+      const summary = getSummary(tasksCompleted);
+      return (
+        <TasksScreen
+          summary={summary}
+          filter={{
+            query: '',
+            status: 'completed',
+            onChangeQuery: () => {},
+            onChangeStatus: () => {},
+          }}
+          tasks={tasksCompleted}
+          newTask={{
+            title: '',
+            note: '',
+            onChangeTitle: () => {},
+            onChangeNote: () => {},
+            onSubmit: () => {},
+          }}
+          onToggleTask={() => {}}
+          onClearCompleted={() => {}}
+        />
+      );
+    },
+  },
 };

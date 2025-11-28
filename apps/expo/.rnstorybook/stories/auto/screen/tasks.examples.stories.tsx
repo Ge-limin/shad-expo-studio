@@ -32,3 +32,11 @@ export const Interactive: Story = {
 export const WithControls: Story = {
   ...storyExamples['WithControls'],
 };
+
+export const EmptyState: Story = {
+  ...storyExamples['EmptyState'],
+};
+
+export const AllCompleted: Story = {
+  ...storyExamples['AllCompleted'],
+};

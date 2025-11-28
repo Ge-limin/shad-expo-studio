@@ -28,3 +28,15 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   ...storyExamples['Default'],
 };
+
+export const Disabled: Story = {
+  ...storyExamples['Disabled'],
+};
+
+export const LongCopy: Story = {
+  ...storyExamples['LongCopy'],
+};
+
+export const OffByDefault: Story = {
+  ...storyExamples['OffByDefault'],
+};

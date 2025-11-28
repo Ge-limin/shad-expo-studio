@@ -30,4 +30,43 @@ export const storyExamples = {
       );
     },
   },
+  Disabled: {
+    render: function Render() {
+      return (
+        <ToggleRow
+          label="Disabled control"
+          description="Used for regression when toggles are locked."
+          value={false}
+          onValueChange={() => {}}
+          style={{ opacity: 0.5 }}
+        />
+      );
+    },
+  },
+  LongCopy: {
+    render: function Render() {
+      const [value, setValue] = useState(false);
+      return (
+        <ToggleRow
+          label="Very long label to test wrapping and spacing in the row component"
+          description="Long description that spans multiple lines to ensure layout remains aligned between text and switch."
+          value={value}
+          onValueChange={setValue}
+        />
+      );
+    },
+  },
+  OffByDefault: {
+    render: function Render() {
+      const [value, setValue] = useState(false);
+      return (
+        <ToggleRow
+          label="Off by default"
+          description="Start off and toggle to on."
+          value={value}
+          onValueChange={setValue}
+        />
+      );
+    },
+  },
 };

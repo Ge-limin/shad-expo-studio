@@ -53,4 +53,29 @@ export const storyExamples = {
       </Card>
     ),
   },
+  NoHeader: {
+    render: () => (
+      <Card>
+        <Text style={{ color: '#cbd5e1', fontSize: 14 }}>
+          Card without title/description to verify spacing stays consistent.
+        </Text>
+      </Card>
+    ),
+  },
+  LongContent: {
+    render: () => (
+      <Card title="Long form content">
+        <View style={{ gap: 10 }}>
+          <Text style={{ color: '#cbd5e1', fontSize: 14 }}>
+            Multi-paragraph content to test spacing and wrapping. Keep styles in
+            the UI package and business logic outside.
+          </Text>
+          <Text style={{ color: '#cbd5e1', fontSize: 14 }}>
+            Second paragraph with slightly longer text to validate line-height
+            and padding within the card body.
+          </Text>
+        </View>
+      </Card>
+    ),
+  },
 };

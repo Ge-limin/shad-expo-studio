@@ -44,3 +44,11 @@ export const Large: Story = {
 export const Disabled: Story = {
   ...storyExamples['Disabled'],
 };
+
+export const CompactOutline: Story = {
+  ...storyExamples['CompactOutline'],
+};
+
+export const WithCustomTextStyle: Story = {
+  ...storyExamples['WithCustomTextStyle'],
+};

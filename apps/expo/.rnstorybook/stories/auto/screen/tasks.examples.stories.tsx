@@ -2,11 +2,14 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import * as Components from '@studio/ui/native';
-import { storyMeta, storyExamples } from '@studio/ui/native/screen/tasks.examples';
+import {
+  storyExamples,
+  storyMeta,
+} from '@studio/ui/native/screen/tasks.examples';
 
 const componentName = storyMeta.componentName ?? 'screen/tasks.examples';
 const Component =
-  (Components as Record<string, React.ComponentType<any>>)[componentName] ??
+  (Components as Record<string, React.ComponentType<unknown>>)[componentName] ??
   (() => null);
 
 const meta: Meta<typeof Component> = {

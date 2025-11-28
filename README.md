@@ -36,6 +36,7 @@ pnpm dlx husky                        # install git hooks (pre-commit runs pnpm 
 
 3. Execute these commands
 ```bash
+pnpm --filter expo-app storybook:generate:auto && pnpm --filter expo-app storybook-generate # Generate the required files for Storybook
 cd apps/expo
 pnpm web                              # start the web dev server to confirm the toolchain
 npx expo install expo-dev-client      # install native dev client deps for iOS/Android

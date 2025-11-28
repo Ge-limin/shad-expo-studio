@@ -7,7 +7,7 @@
  *
  * Stories are emitted to .rnstorybook/stories/auto and picked up by Storybook.
  */
-/* eslint-disable no-console, @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');

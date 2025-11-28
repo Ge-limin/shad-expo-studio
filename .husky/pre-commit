@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 set -e
 
+pnpm --filter expo-app storybook:generate:auto
 pnpm format:fix
 git update-index --again

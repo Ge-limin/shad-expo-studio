@@ -4,8 +4,9 @@ Lightweight Expo shell for previewing shadcn-inspired components and Storybook s
 
 ## Quick start
 
+Note: you must finish the commands in root
+
 ```bash
-pnpm install
 pnpm --filter expo-app start   # choose ios/android/web
 
 # Quality checks
@@ -25,11 +26,14 @@ pnpm --filter expo-app test
 - This repo is UI-first: avoid adding backend SDKs or product-specific logic.
 - Keep dependencies minimal so designers can iterate quickly in Expo and Storybook.
 
-## Storybook auto-generation
+## Storybook (simplified)
 
-- Add `*.examples.tsx` next to a UI component/screen in `packages/ui/src/native/**`. Export:
-  - `storyMeta`: `{ componentName: string; title?: string; decorators?: Decorator[]; parameters?: object }`
-  - `storyExamples`: an object of stories (args/render/argTypes/etc.). Keep them deterministic and UI-only.
-- Run `pnpm --filter expo-app storybook:generate:auto` to emit stories into `.rnstorybook/stories/auto/**`. The Storybook glob already picks them up. But this command is also auto triggered by husky hooks before commit.
-- Do not edit generated files; change the example source and re-run the generator.
-
+- Add `*.examples.tsx` next to a UI component/screen in `packages/ui/src/native/**`, exporting `storyMeta` + `storyExamples` (deterministic, UI-only).
+- Run `pnpm start:storybook` from repo root. It auto-generates stories and the Storybook requires file, then starts Expo with Storybook enabled.
+- Hooks run some steps for you:
+  - pre-commit: `pnpm --filter expo-app storybook:generate:auto` + `pnpm format:fix`
+  - pre-push: `pnpm typecheck` + `pnpm lint:fix`
+- If CI needs artifacts only, you can still run the generators directly:
+  - `pnpm --filter expo-app storybook:generate:auto` (writes `.rnstorybook/stories/auto/**`)
+  - `pnpm --filter expo-app storybook-generate` (writes `.rnstorybook/storybook.requires.ts`)
+- Do not edit generated files; change the example source and re-run `pnpm start:storybook` (or the generators).

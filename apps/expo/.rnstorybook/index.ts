@@ -15,6 +15,9 @@ const storage = isWeb
       setItem: AsyncStorage.setItem,
     };
 
-const StorybookUIRoot = view.getStorybookUI({ storage });
+const StorybookUIRoot = view.getStorybookUI({
+  storage,
+  shouldPersistSelection: false, // avoid stale story ids after HMR or story regen
+});
 
 export default StorybookUIRoot;

@@ -32,3 +32,4 @@ pnpm-lock.yaml
 *storybook.log
 storybook-static
 .rnstorybook/storybook.requires.*
+!.rnstorybook/storybook.requires.d.ts

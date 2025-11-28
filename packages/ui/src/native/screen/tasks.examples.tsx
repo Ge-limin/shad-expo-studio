@@ -160,7 +160,13 @@ export const storyExamples = {
         name: 'Filter query',
       },
     },
-    render: function RenderControls({ filterQuery, filterStatus }) {
+    render: function RenderControls({
+      filterQuery,
+      filterStatus,
+    }: {
+      filterQuery: string;
+      filterStatus: TaskFilter['status'];
+    }) {
       const [tasks, setTasks] = useState<TaskListItem[]>(baseTasks);
       const [query, setQuery] = useState(filterQuery);
       const [status, setStatus] = useState<TaskFilter['status']>(filterStatus);

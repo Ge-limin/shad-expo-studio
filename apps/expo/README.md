@@ -4,8 +4,9 @@ Lightweight Expo shell for previewing shadcn-inspired components and Storybook s
 
 ## Quick start
 
+Note: you must finish the commands in root
+
 ```bash
-pnpm install
 pnpm --filter expo-app start   # choose ios/android/web
 
 # Quality checks
@@ -30,6 +31,5 @@ pnpm --filter expo-app test
 - Add `*.examples.tsx` next to a UI component/screen in `packages/ui/src/native/**`. Export:
   - `storyMeta`: `{ componentName: string; title?: string; decorators?: Decorator[]; parameters?: object }`
   - `storyExamples`: an object of stories (args/render/argTypes/etc.). Keep them deterministic and UI-only.
-- Run `pnpm --filter expo-app storybook:generate:auto` to emit stories into `.rnstorybook/stories/auto/**`. The Storybook glob already picks them up. But this command is also auto triggered by husky hooks before commit.
-- Do not edit generated files; change the example source and re-run the generator.
-
+- Run `pnpm --filter expo-app storybook:generate:auto` to emit stories into `.rnstorybook/stories/auto/**`, then `pnpm --filter expo-app storybook-generate` to refresh `.rnstorybook/storybook.requires.ts` (used by the on-device UI). The Storybook glob already picks them up. Husky will also trigger the auto generator before commit.
+- Do not edit generated files; change the example source and re-run the generators.

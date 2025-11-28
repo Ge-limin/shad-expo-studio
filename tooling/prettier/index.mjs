@@ -1,4 +1,11 @@
 /** @typedef  {import("prettier").Config} PrettierConfig */
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const sortImportsPlugin = require.resolve(
+  '@trivago/prettier-plugin-sort-imports',
+);
+const tailwindPlugin = require.resolve('prettier-plugin-tailwindcss');
 
 /** @type { PrettierConfig } */
 const config = {
@@ -23,10 +30,7 @@ const config = {
   tailwindFunctions: ['tw', 'clsx', 'cn', 'cva'],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
-  plugins: [
-    '@trivago/prettier-plugin-sort-imports',
-    'prettier-plugin-tailwindcss',
-  ],
+  plugins: [sortImportsPlugin, tailwindPlugin],
 };
 
 export default config;

@@ -24,3 +24,11 @@ pnpm --filter expo-app test
 
 - This repo is UI-first: avoid adding backend SDKs or product-specific logic.
 - Keep dependencies minimal so designers can iterate quickly in Expo and Storybook.
+
+## Storybook auto-generation
+
+- Add `*.examples.tsx` next to a UI component/screen in `packages/ui/src/native/**`. Export:
+  - `storyMeta`: `{ componentName: string; title?: string; decorators?: Decorator[]; parameters?: object }`
+  - `storyExamples`: an object of stories (args/render/argTypes/etc.). Keep them deterministic and UI-only.
+- Run `pnpm --filter expo-app storybook:generate:auto` to emit stories into `.rnstorybook/stories/auto/**`. The Storybook glob already picks them up.
+- Do not edit generated files; change the example source and re-run the generator.

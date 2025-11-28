@@ -75,7 +75,13 @@
     "./native/common/card": "./src/native/common/card.tsx",
     "./native/common/text-field": "./src/native/common/text-field.tsx",
     "./native/common/toggle-row": "./src/native/common/toggle-row.tsx",
-    "./native/screen/tasks": "./src/native/screen/tasks.tsx"
+    "./native/screen/tasks": "./src/native/screen/tasks.tsx",
+    "./native/common/badge.examples": "./src/native/common/badge.examples.tsx",
+    "./native/common/button.examples": "./src/native/common/button.examples.tsx",
+    "./native/common/card.examples": "./src/native/common/card.examples.tsx",
+    "./native/common/text-field.examples": "./src/native/common/text-field.examples.tsx",
+    "./native/common/toggle-row.examples": "./src/native/common/toggle-row.examples.tsx",
+    "./native/screen/tasks.examples": "./src/native/screen/tasks.examples.tsx"
   },
   "typesVersions": {
     "*": {
@@ -121,8 +127,26 @@
       "native/common/toggle-row": [
         "src/native/common/toggle-row.tsx"
       ],
+      "native/common/badge.examples": [
+        "src/native/common/badge.examples.tsx"
+      ],
+      "native/common/button.examples": [
+        "src/native/common/button.examples.tsx"
+      ],
+      "native/common/card.examples": [
+        "src/native/common/card.examples.tsx"
+      ],
+      "native/common/text-field.examples": [
+        "src/native/common/text-field.examples.tsx"
+      ],
+      "native/common/toggle-row.examples": [
+        "src/native/common/toggle-row.examples.tsx"
+      ],
       "native/screen/tasks": [
         "src/native/screen/tasks.tsx"
+      ],
+      "native/screen/tasks.examples": [
+        "src/native/screen/tasks.examples.tsx"
       ],
       "*": [
         "src/*"

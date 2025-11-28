@@ -20,6 +20,7 @@
     "build:web": "eas build -p web --profile production",
     "build:all": "pnpm run build:ios && pnpm run build:android && pnpm run build:web",
     "storybook-generate": "sb-rn-get-stories",
+    "storybook:generate:auto": "node ./.rnstorybook/generate-stories.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook:fix-requires": "node scripts/fix-storybook-requires.js",

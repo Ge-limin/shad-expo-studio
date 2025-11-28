@@ -63,4 +63,11 @@ pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchm
 - Separation of concerns: `packages/ui` = presentational React Native UI only; `apps/expo/app/*` = Expo Router shells that own state, data fetching, navigation, analytics, and pass props down.
 - UI-first: prioritize stable, deterministic examples for visual regression. Avoid backend SDKs or product-specific logic in the UI package.
 - Storybook auto-gen: examples drive generated stories under `apps/expo/.rnstorybook/stories/auto/**`. Do not edit generated files; change examples and rerun `pnpm start:storybook`.
-- Chromatic (planned): we’ll publish the web Storybook (`pnpm --filter expo-app build-storybook`) to Chromatic for CI visual diffs; keep examples deterministic to make snapshots reliable.
+- Chromatic: CI publishes the web Storybook to Chromatic for visual diffs; keep examples deterministic to make snapshots reliable.
+
+## Chromatic (visual regression)
+- We use Chromatic to publish the web Storybook. CI runs `pnpm chromatic` (which calls the `apps/expo` Chromatic script) on in-repo PRs.
+- Setup for contributors:
+  - Local: put `CHROMATIC_PROJECT_TOKEN=...` in `apps/expo/.env.local` (gitignored). The `pnpm chromatic` script auto-loads `.env.local`/`.env` and passes the token through.
+  - CI: store the same token in your CI secrets as `CHROMATIC_PROJECT_TOKEN`.
+- Run locally from repo root: `pnpm chromatic`. This builds the React Native Web Storybook and uploads snapshots to Chromatic’s CDN using the token from `.env.local`/`.env`.

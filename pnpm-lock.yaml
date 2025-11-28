@@ -284,6 +284,9 @@ importers:
       babel-plugin-module-resolver:
         specifier: ^5.0.2
         version: 5.0.2
+      chromatic:
+        specifier: ^13.3.4
+        version: 13.3.4
       cross-env:
         specifier: ^10.0.0
         version: 10.1.0

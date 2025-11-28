@@ -36,3 +36,9 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      - name: Publish Storybook to Chromatic
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: pnpm chromatic

@@ -24,7 +24,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook:fix-requires": "node scripts/fix-storybook-requires.js",
-    "storybook-generate:fixed": "pnpm storybook-generate && pnpm storybook:fix-requires"
+    "storybook-generate:fixed": "pnpm storybook-generate && pnpm storybook:fix-requires",
+    "chromatic": "cross-env-shell \"set -a; [ -f ./.env.local ] && . ./.env.local; [ -f ./.env ] && . ./.env; set +a; chromatic --project-token $CHROMATIC_PROJECT_TOKEN\""
   },
   "prettier": "@studio/prettier-config",
   "jest": {
@@ -117,6 +118,7 @@
     "@vitest/browser-playwright": "^4.0.14",
     "@vitest/coverage-v8": "^4.0.14",
     "babel-plugin-module-resolver": "^5.0.2",
+    "chromatic": "^13.3.4",
     "cross-env": "^10.0.0",
     "eslint": "^9.35.0",
     "eslint-config-expo": "~10.0.0",

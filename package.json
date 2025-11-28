@@ -39,6 +39,7 @@
     "web:storybook": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED=true pnpm --filter expo-app web",
     "start:storybook": "pnpm --filter expo-app storybook:generate:auto && pnpm --filter expo-app storybook-generate && cross-env EXPO_PUBLIC_STORYBOOK_ENABLED=true pnpm --filter expo-app start",
     "storybook": "pnpm --filter expo-app storybook",
+    "chromatic": "pnpm --filter expo-app chromatic",
     "update": "pnpm update -r",
     "syncpack:list": "pnpm dlx syncpack list-mismatches",
     "syncpack:fix": "pnpm dlx syncpack fix-mismatches"

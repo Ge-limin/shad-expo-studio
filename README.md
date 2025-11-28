@@ -36,8 +36,8 @@ pnpm dlx husky                        # install git hooks (pre-commit runs pnpm 
 
 3. Execute these commands
 ```bash
-pnpm --filter expo-app storybook:generate:auto && pnpm --filter expo-app storybook-generate # Generate the required files for Storybook
 cd apps/expo
+pnpm storybook:generate:auto && pnpm storybook-generate # Generate the required files for Storybook
 pnpm web                              # start the web dev server to confirm the toolchain
 npx expo install expo-dev-client      # install native dev client deps for iOS/Android
 pnpm android                          # build and launch the Android dev client in the emulator
@@ -60,16 +60,20 @@ pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchm
 ```
 
 ### Storybook
-- Native/on-device (Expo bundler): `pnpm start:storybook`, then open the `/storybook` route in the app (Expo Router). Use `pnpm web:pure` to run a pure app web bundle, or `pnpm web:storybook` to include Storybook in the web bundle.
+- Native/on-device (Expo bundler, also works for web if you choose the web target): `pnpm start:storybook`, then open the `/storybook` route in the app (Expo Router). Use `pnpm web:pure` to run a pure app web bundle, or `pnpm web:storybook` to include Storybook in the web bundle explicitly.
 - Web (browser UI via Vite/React Native Web): `pnpm storybook` from the repo root (opens on port 6006).
 
 ### Switching between app shell and Storybook
 - Pure app shell: run `pnpm web:pure` (or `pnpm --filter expo-app start` without setting `EXPO_PUBLIC_STORYBOOK_ENABLED`) to load only the app screens.
-- Storybook-enabled bundle: run `pnpm start:storybook` for native or `pnpm web:storybook` for web. Both set `EXPO_PUBLIC_STORYBOOK_ENABLED=true` before starting the Expo bundler.
+- Storybook-enabled bundle: run `pnpm start:storybook` (native or web target) or `pnpm web:storybook` for web-only. Both set `EXPO_PUBLIC_STORYBOOK_ENABLED=true` before starting the Expo bundler.
 - In the running app, tap the `Open Storybook (/storybook)` button on the home screen Navigation card or in the Tasks screen header. You can also type `/storybook` in the app URL once the Storybook bundle is enabled.
 - Switch modes by restarting the bundler with or without `EXPO_PUBLIC_STORYBOOK_ENABLED`; the Storybook button hides itself when the bundle is pure app-only, so you can confirm the mode visually.
 
 ### Visual guide
+- Cross-platform view (web + iOS + Android) with Storybook toggle visible:
+
+  ![Home shell across web, iOS, and Android](apps/expo/assets/screenshots/works-on-3-interfaces.png)
+
 - Home shell with jump buttons (tap `Open Storybook (/storybook)` to switch):
 
   ![Home navigation card showing Tasks and Storybook buttons](apps/expo/assets/screenshots/expo-app-home.png)

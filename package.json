@@ -12,9 +12,8 @@
   "pnpm": {
     "overrides": {
       "expo-router": "6.0.12",
-      "react": "19.1.2",
-      "react-dom": "19.1.2",
-      "react-server-dom-webpack": "19.1.2",
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
       "babel-plugin-react-compiler": "19.1.0-rc.3"
     }
   },

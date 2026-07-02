@@ -1,0 +1,91 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "shad-expo-studio",
+  "homepage": "https://github.com/Ge-limin/shad-expo-studio",
+  "items": [
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "React Native badge with tone variants. Plain StyleSheet, no styling dependencies.",
+      "files": [
+        {
+          "path": "packages/ui/src/native/common/badge.tsx",
+          "type": "registry:ui",
+          "target": "components/studio/common/badge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "React Native button with solid/outline variants and sm/md/lg sizes. Plain StyleSheet, no styling dependencies.",
+      "files": [
+        {
+          "path": "packages/ui/src/native/common/button.tsx",
+          "type": "registry:ui",
+          "target": "components/studio/common/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "React Native card with header/body sections. Plain StyleSheet, no styling dependencies.",
+      "files": [
+        {
+          "path": "packages/ui/src/native/common/card.tsx",
+          "type": "registry:ui",
+          "target": "components/studio/common/card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "text-field",
+      "type": "registry:ui",
+      "title": "TextField",
+      "description": "React Native labeled text input with error state. Plain StyleSheet, no styling dependencies.",
+      "files": [
+        {
+          "path": "packages/ui/src/native/common/text-field.tsx",
+          "type": "registry:ui",
+          "target": "components/studio/common/text-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle-row",
+      "type": "registry:ui",
+      "title": "ToggleRow",
+      "description": "React Native labeled switch row. Plain StyleSheet, no styling dependencies.",
+      "files": [
+        {
+          "path": "packages/ui/src/native/common/toggle-row.tsx",
+          "type": "registry:ui",
+          "target": "components/studio/common/toggle-row.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tasks-screen",
+      "type": "registry:block",
+      "title": "Tasks screen",
+      "description": "Complete presentational tasks screen composing Badge, Button, Card, and TextField. Props in, UI out — bring your own state.",
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/badge.json",
+        "https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/button.json",
+        "https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/card.json",
+        "https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/text-field.json"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/native/screen/tasks.tsx",
+          "type": "registry:ui",
+          "target": "components/studio/screen/tasks.tsx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "React Native badge with tone variants. Plain StyleSheet, no styling dependencies.",
+  "files": [
+    {
+      "path": "packages/ui/src/native/common/badge.tsx",
+      "content": "import type { StyleProp, TextStyle, ViewStyle } from 'react-native';\nimport { StyleSheet, Text, View } from 'react-native';\n\ntype Tone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';\n\nexport type BadgeProps = {\n  label: string;\n  tone?: Tone;\n  style?: StyleProp<ViewStyle>;\n  textStyle?: StyleProp<TextStyle>;\n};\n\nconst toneStyles: Record<Tone, { container: ViewStyle; text: TextStyle }> = {\n  neutral: {\n    container: { backgroundColor: '#e2e8f0', borderColor: '#cbd5e1' },\n    text: { color: '#0f172a' },\n  },\n  info: {\n    container: { backgroundColor: '#e0f2fe', borderColor: '#7dd3fc' },\n    text: { color: '#075985' },\n  },\n  success: {\n    container: { backgroundColor: '#dcfce7', borderColor: '#86efac' },\n    text: { color: '#166534' },\n  },\n  warning: {\n    container: { backgroundColor: '#fef3c7', borderColor: '#fbbf24' },\n    text: { color: '#92400e' },\n  },\n  danger: {\n    container: { backgroundColor: '#fee2e2', borderColor: '#f87171' },\n    text: { color: '#991b1b' },\n  },\n};\n\nexport function Badge({\n  label,\n  tone = 'neutral',\n  style,\n  textStyle,\n}: BadgeProps) {\n  const toneStyle = toneStyles[tone];\n  return (\n    <View style={[styles.container, toneStyle.container, style]}>\n      <Text style={[styles.text, toneStyle.text, textStyle]}>{label}</Text>\n    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: {\n    paddingHorizontal: 10,\n    paddingVertical: 6,\n    borderRadius: 999,\n    borderWidth: 1,\n    alignSelf: 'flex-start',\n  },\n  text: {\n    fontWeight: '600',\n    fontSize: 13,\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/studio/common/badge.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

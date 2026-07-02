@@ -73,6 +73,33 @@ The inventory is deliberately small. Every entry is fully wired — example, sto
 
 Components use plain React Native `StyleSheet` — no NativeWind, no Tailwind config to wire up before they render.
 
+## Install components into your own app
+
+The components are distributed as source through a shadcn-compatible registry — you copy the code and own it, nothing to `npm install`. From your Expo project:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/button.json
+```
+
+Available items: `badge`, `button`, `card`, `text-field`, `toggle-row`, and `tasks-screen` (which pulls its four component dependencies automatically). Files land under `components/studio/` in your project.
+
+One caveat: the shadcn CLI doesn't detect Expo as a framework, so it needs a `components.json` in your project root. If you don't have one, create this minimal version first:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": { "config": "", "css": "", "baseColor": "neutral", "cssVariables": false },
+  "aliases": { "components": "@/components", "ui": "@/components/ui", "lib": "@/lib", "utils": "@/lib/utils", "hooks": "@/hooks" }
+}
+```
+
+The tailwind/aliases fields are required by the schema but unused here — every registry item declares an explicit `target` path and has zero styling dependencies.
+
+CI rebuilds the registry on every PR and fails if `public/r/` is out of sync with the component sources, so what you install always matches what Storybook and Chromatic verified.
+
 ## Daily commands
 
 ```bash

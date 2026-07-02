@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "title": "Card",
+  "description": "React Native card with header/body sections. Plain StyleSheet, no styling dependencies.",
+  "files": [
+    {
+      "path": "packages/ui/src/native/common/card.tsx",
+      "content": "import type { ReactNode } from 'react';\n\nimport type { StyleProp, TextStyle, ViewStyle } from 'react-native';\nimport { StyleSheet, Text, View } from 'react-native';\n\nexport type CardProps = {\n  title?: string;\n  description?: string;\n  children: ReactNode;\n  style?: StyleProp<ViewStyle>;\n  titleStyle?: StyleProp<TextStyle>;\n  descriptionStyle?: StyleProp<TextStyle>;\n  footer?: ReactNode;\n};\n\nexport function Card({\n  title,\n  description,\n  children,\n  style,\n  titleStyle,\n  descriptionStyle,\n  footer,\n}: CardProps) {\n  return (\n    <View style={[styles.container, style]}>\n      {(title || description) && (\n        <View style={styles.header}>\n          {title ? (\n            <Text style={[styles.title, titleStyle]}>{title}</Text>\n          ) : null}\n          {description ? (\n            <Text style={[styles.description, descriptionStyle]}>\n              {description}\n            </Text>\n          ) : null}\n        </View>\n      )}\n      <View style={styles.body}>{children}</View>\n      {footer ? <View style={styles.footer}>{footer}</View> : null}\n    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: {\n    backgroundColor: '#0b1222',\n    borderColor: '#1f2937',\n    borderWidth: 1,\n    borderRadius: 16,\n    padding: 16,\n    gap: 12,\n    shadowColor: '#0f172a',\n    shadowOpacity: 0.2,\n    shadowRadius: 12,\n    shadowOffset: { width: 0, height: 6 },\n  },\n  header: {\n    gap: 4,\n  },\n  title: {\n    fontSize: 18,\n    fontWeight: '700',\n    color: '#e2e8f0',\n  },\n  description: {\n    fontSize: 14,\n    color: '#cbd5e1',\n  },\n  body: {\n    gap: 10,\n  },\n  footer: {\n    marginTop: 8,\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/studio/common/card.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

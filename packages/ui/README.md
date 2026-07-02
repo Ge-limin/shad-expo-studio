@@ -1,20 +1,22 @@
-# UI - @studio/ui
+# @studio/ui
 
-Shared UI components and styles used across the studio.
+The presentational component layer of the studio. React Native components styled with plain `StyleSheet` — no NativeWind, no Tailwind, no navigation/network/app-state imports.
 
-This package defines two sets of components:
+Every component lives next to a `*.examples.tsx` file that exports `storyMeta` + `storyExamples` with deterministic data. Those examples drive everything downstream: the story generator in `apps/expo/.rnstorybook/` turns them into Storybook stories, and Chromatic locks the rendered output as visual baselines.
 
-- `Shadcn UI`: reusable primitives for designers to compose screens
-- `Studio-specific`: helper components we curate for demos and Storybook scenarios
+## Layout
 
-## Installing a Shadcn UI component
+```
+src/native/common/    Badge, Button, Card, TextField, ToggleRow (+ their examples)
+src/native/screen/    Tasks screen (+ examples)
+src/native/index.ts   the public surface, imported as @studio/ui/native
+```
 
-Install dependencies with `pnpm i`, then import from `@studio/ui/<component>` inside Expo or Storybook examples.
+## Adding a component
 
-## Storybook examples
+1. Create `src/native/common/<name>.tsx` — presentational only, props in, UI out.
+2. Create `src/native/common/<name>.examples.tsx` next to it. Copy an existing one (`button.examples.tsx` is the reference shape): export `storyMeta` (with `componentName` matching your export) and `storyExamples` (deterministic args — no random data, no clock reads).
+3. Export the component from `src/native/index.ts` and add the export-map entries in `package.json`.
+4. Commit. The pre-commit hook regenerates the Storybook story; CI typechecks, lints, and diffs the visuals on Chromatic.
 
-- Place `*.examples.tsx` beside the component/screen and export `storyMeta` (with `componentName`) plus `storyExamples` (args/render/argTypes). Keep them presentational and deterministic for visual regression.
-- Local flow: run `pnpm start:storybook` (from repo root) to regenerate stories/require files and start Expo with Storybook enabled. pre-commit will also auto-run the story generator + format.
-- CI/manual: generators are available if you only need artifacts:
-  - `pnpm --filter expo-app storybook:generate:auto`
-  - `pnpm --filter expo-app storybook-generate`
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) at the repo root for the full loop.

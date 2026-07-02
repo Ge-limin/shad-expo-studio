@@ -132,6 +132,10 @@ tooling/         Shared eslint / prettier / tsconfig.
 
 The split is the point: the UI package stays pure and deterministic so stories and baselines stay reliable, while everything stateful lives in route wrappers under `apps/expo/app/`.
 
+## Contributing
+
+The contribution unit is a component plus its examples file — see [CONTRIBUTING.md](CONTRIBUTING.md) for the full authoring loop.
+
 ## Why this exists
 
 Code volume exploded in the AI-assisted era and manual review misses subtle visual regressions. Deterministic stories plus Chromatic baselines catch the drift that slips past PR review. Separating presentational UI from product code lets a designer, or an AI agent, own the UI layer while app code stays focused on data and flows. And cross-platform Storybook coverage for React Native is still painful to wire up from scratch — this repo is that wiring, done once, as a working reference.

@@ -9,13 +9,17 @@ Every component in this repo ships with a deterministic example file that genera
 [![Storybook 10](https://img.shields.io/badge/Storybook-10-ff4785?logo=storybook&logoColor=white)](https://storybook.js.org)
 [![Expo SDK 54](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo&logoColor=white)](https://expo.dev)
 
+**[▶ Browse the live Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com)** — every component and story, published from CI. No install needed.
+
 ![Home shell across web, iOS, and Android](apps/expo/assets/screenshots/works-on-3-interfaces.png)
 
 The name, decoded: **shad** = shadcn-style (you own the component source), **expo** = the platform, **studio** = the authoring and visual-regression harness around it.
 
 ## Try it
 
-**Run the Storybook locally — no Xcode, no emulator, no signing:**
+**Zero install**: browse the [hosted Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com) in your browser.
+
+**Run it locally — no Xcode, no emulator, no signing:**
 
 ```bash
 pnpm install

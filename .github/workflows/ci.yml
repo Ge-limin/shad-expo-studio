@@ -39,6 +39,11 @@ jobs:
       - name: Test
         run: pnpm test
 
+      - name: Registry is in sync with component sources
+        run: |
+          pnpm registry:build
+          git diff --exit-code registry.json public/r
+
       - name: Publish Storybook to Chromatic
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         env:

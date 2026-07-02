@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "title": "Button",
+  "description": "React Native button with solid/outline variants and sm/md/lg sizes. Plain StyleSheet, no styling dependencies.",
+  "files": [
+    {
+      "path": "packages/ui/src/native/common/button.tsx",
+      "content": "import type {\n  PressableProps,\n  StyleProp,\n  TextStyle,\n  ViewStyle,\n} from 'react-native';\nimport { Pressable, StyleSheet, Text } from 'react-native';\n\ntype Variant = 'solid' | 'outline';\ntype Size = 'sm' | 'md' | 'lg';\n\nexport type ButtonProps = Omit<PressableProps, 'style'> & {\n  label: string;\n  variant?: Variant;\n  size?: Size;\n  style?: StyleProp<ViewStyle>;\n  textStyle?: StyleProp<TextStyle>;\n};\n\nconst variantStyles: Record<\n  Variant,\n  { container: ViewStyle; text: TextStyle }\n> = {\n  solid: {\n    container: {\n      backgroundColor: '#6366f1',\n      borderColor: '#4f46e5',\n    },\n    text: { color: '#f8fafc' },\n  },\n  outline: {\n    container: {\n      backgroundColor: 'rgba(255, 255, 255, 0.06)',\n      borderColor: '#94a3b8',\n    },\n    text: { color: '#e2e8f0' },\n  },\n};\n\nconst sizeStyles: Record<Size, { container: ViewStyle; text: TextStyle }> = {\n  sm: {\n    container: { paddingHorizontal: 12, paddingVertical: 10 },\n    text: { fontSize: 14 },\n  },\n  md: {\n    container: { paddingHorizontal: 14, paddingVertical: 12 },\n    text: { fontSize: 15 },\n  },\n  lg: {\n    container: { paddingHorizontal: 16, paddingVertical: 14 },\n    text: { fontSize: 16 },\n  },\n};\n\nexport function Button({\n  label,\n  variant = 'solid',\n  size = 'md',\n  disabled,\n  style,\n  textStyle,\n  ...pressableProps\n}: ButtonProps) {\n  const variantStyle = variantStyles[variant];\n  const sizeStyle = sizeStyles[size];\n\n  return (\n    <Pressable\n      accessibilityRole=\"button\"\n      disabled={disabled}\n      style={({ pressed }) => [\n        styles.base,\n        variantStyle.container,\n        sizeStyle.container,\n        pressed && styles.pressed,\n        disabled && styles.disabled,\n        style,\n      ]}\n      {...pressableProps}\n    >\n      <Text style={[styles.text, variantStyle.text, sizeStyle.text, textStyle]}>\n        {label}\n      </Text>\n    </Pressable>\n  );\n}\n\nconst styles = StyleSheet.create({\n  base: {\n    borderWidth: 1,\n    borderRadius: 12,\n    alignItems: 'center',\n    justifyContent: 'center',\n    minWidth: 120,\n    shadowColor: '#0f172a',\n    shadowOpacity: 0.18,\n    shadowRadius: 10,\n    shadowOffset: { width: 0, height: 2 },\n    elevation: 2,\n  },\n  text: {\n    fontWeight: '600',\n  },\n  pressed: {\n    transform: [{ translateY: 1 }],\n    opacity: 0.9,\n  },\n  disabled: {\n    opacity: 0.5,\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/studio/common/button.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

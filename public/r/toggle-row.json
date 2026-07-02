@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-row",
+  "title": "ToggleRow",
+  "description": "React Native labeled switch row. Plain StyleSheet, no styling dependencies.",
+  "files": [
+    {
+      "path": "packages/ui/src/native/common/toggle-row.tsx",
+      "content": "import type { StyleProp, TextStyle, ViewStyle } from 'react-native';\nimport { StyleSheet, Switch, Text, View } from 'react-native';\n\nexport type ToggleRowProps = {\n  label: string;\n  description?: string;\n  value: boolean;\n  onValueChange: (next: boolean) => void;\n  style?: StyleProp<ViewStyle>;\n  labelStyle?: StyleProp<TextStyle>;\n  descriptionStyle?: StyleProp<TextStyle>;\n};\n\nexport function ToggleRow({\n  label,\n  description,\n  value,\n  onValueChange,\n  style,\n  labelStyle,\n  descriptionStyle,\n}: ToggleRowProps) {\n  return (\n    <View style={[styles.container, style]}>\n      <View style={styles.textCol}>\n        <Text style={[styles.label, labelStyle]}>{label}</Text>\n        {description ? (\n          <Text style={[styles.description, descriptionStyle]}>\n            {description}\n          </Text>\n        ) : null}\n      </View>\n      <Switch\n        value={value}\n        onValueChange={onValueChange}\n        trackColor={{ false: '#1f2937', true: '#10b981' }}\n      />\n    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingVertical: 10,\n    gap: 12,\n  },\n  textCol: {\n    flex: 1,\n    gap: 2,\n  },\n  label: {\n    color: '#e2e8f0',\n    fontSize: 15,\n    fontWeight: '600',\n  },\n  description: {\n    color: '#94a3b8',\n    fontSize: 13,\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/studio/common/toggle-row.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

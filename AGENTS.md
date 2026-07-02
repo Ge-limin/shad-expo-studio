@@ -28,7 +28,7 @@ This file provides guidance to coding agent when working with code in this repos
 - Generated story titles follow `auto/<Component>`; keep deterministic data for visual diffs.
 
 ## UI Components
-- Use via `@studio/ui/native` (Badge, Button, Card, TextField, ToggleRow, Tasks screen, etc.).
+- Use via `@studio/ui/native` (Badge, Button, Card, TextField, ToggleRow, Tasks screen).
 - Examples sit next to components in `packages/ui/src/native/...` and must be deterministic (no side effects).
 
 

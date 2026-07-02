@@ -2,11 +2,9 @@ import eslint from '@eslint/js';
 import turboConfig from 'eslint-config-turbo/flat';
 import tsEsLint from 'typescript-eslint';
 
-import nextConfig from './nextjs.js';
-
 export default tsEsLint.config(
   eslint.configs.recommended,
-  nextConfig,
+  tsEsLint.configs.recommended,
   turboConfig,
   {
     settings: {
@@ -22,18 +20,9 @@ export default tsEsLint.config(
   },
   {
     rules: {
+      // TypeScript owns undefined-identifier checking; CJS config scripts use node globals.
+      'no-undef': 'off',
       '@typescript-eslint/triple-slash-reference': 'off',
-      'react/react-in-jsx-scope': 'off',
-      'import/no-anonymous-default-export': 'off',
-      'import/named': 'off',
-      'import/namespace': 'off',
-      'import/default': 'off',
-      'import/no-unresolved': 'off',
-      'import/no-named-as-default-member': 'off',
-      'import/no-named-as-default': 'off',
-      'import/no-cycle': 'off',
-      'import/no-unused-modules': 'off',
-      'import/no-deprecated': 'off',
       'turbo/no-undeclared-env-vars': 'off',
       '@typescript-eslint/array-type': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
@@ -53,7 +42,6 @@ export default tsEsLint.config(
     ignores: [
       '**/node_modules',
       '**/database.types.ts',
-      '**/.next',
       '**/public',
       '**/.cache',
       '**/.cache/**',

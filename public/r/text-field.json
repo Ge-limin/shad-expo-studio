@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-field",
+  "title": "TextField",
+  "description": "React Native labeled text input with error state. Plain StyleSheet, no styling dependencies.",
+  "files": [
+    {
+      "path": "packages/ui/src/native/common/text-field.tsx",
+      "content": "import type {\n  StyleProp,\n  TextInputProps,\n  TextStyle,\n  ViewStyle,\n} from 'react-native';\nimport { StyleSheet, Text, TextInput, View } from 'react-native';\n\nexport type TextFieldProps = {\n  label?: string;\n  helperText?: string;\n  errorText?: string;\n  containerStyle?: StyleProp<ViewStyle>;\n  labelStyle?: StyleProp<TextStyle>;\n  helperStyle?: StyleProp<TextStyle>;\n  errorStyle?: StyleProp<TextStyle>;\n} & Omit<TextInputProps, 'style'> & {\n    inputStyle?: StyleProp<TextStyle>;\n  };\n\nexport function TextField({\n  label,\n  helperText,\n  errorText,\n  containerStyle,\n  labelStyle,\n  helperStyle,\n  errorStyle,\n  inputStyle,\n  ...inputProps\n}: TextFieldProps) {\n  const hasError = Boolean(errorText);\n\n  return (\n    <View style={[styles.container, containerStyle]}>\n      {label ? <Text style={[styles.label, labelStyle]}>{label}</Text> : null}\n      <TextInput\n        placeholderTextColor=\"#94a3b8\"\n        style={[styles.input, hasError && styles.inputError, inputStyle]}\n        {...inputProps}\n      />\n      {helperText && !hasError ? (\n        <Text style={[styles.helper, helperStyle]}>{helperText}</Text>\n      ) : null}\n      {hasError ? (\n        <Text style={[styles.error, errorStyle]}>{errorText}</Text>\n      ) : null}\n    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: {\n    gap: 6,\n  },\n  label: {\n    fontSize: 14,\n    fontWeight: '600',\n    color: '#e2e8f0',\n  },\n  input: {\n    backgroundColor: '#0b1222',\n    borderColor: '#1f2937',\n    borderWidth: 1,\n    borderRadius: 12,\n    paddingHorizontal: 14,\n    paddingVertical: 12,\n    color: '#e2e8f0',\n    fontSize: 15,\n  },\n  inputError: {\n    borderColor: '#f87171',\n  },\n  helper: {\n    fontSize: 13,\n    color: '#94a3b8',\n  },\n  error: {\n    fontSize: 13,\n    color: '#f87171',\n    fontWeight: '600',\n  },\n});\n",
+      "type": "registry:ui",
+      "target": "components/studio/common/text-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

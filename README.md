@@ -1,109 +1,176 @@
-# shad-expo-studio
-A studio for designing and shipping shadcn-style components in Expo/React Native with Storybook-backed visual regression.
+# Shad Expo Studio
 
-## What this repo is for
-- We’re in an AI-heavy era where code volume exploded and manual review misses subtle regressions. Visual regression + deterministic stories catch the flakiness and design drift that slip past PR review.
-- Frontend teams are stretched between UI polish and business logic. By separating presentational UI (`packages/ui`) from product code (`apps/expo`), designers (or AI-assisted flows) can own the UI layer while app devs focus on data/flows.
-- Cross-platform (native + web) Storybook coverage is still sparse in the community; this repo offers a concrete pattern for React Native Web + Expo with Chromatic baked in.
-- We want a faster design-to-prod loop: examples drive generated stories, Chromatic locks visuals, and the app shell simply consumes the shared UI.
-- The repo ships with lots of concrete code (components, screens, Storybook setup, scripts) so a coding agent—or anyone new—can follow the conventions and spin up new features or variants quickly without rediscovering patterns.
+**A visual-regression studio for Expo / React Native UI components. Not a component library.**
 
-## How to use it (in short)
-- Install deps (below), then run `pnpm start:storybook` to regenerate stories and open the Storybook-enabled Expo bundle.
-- Edit or add `*.examples.tsx` next to components in `packages/ui/src/native/**` to drive Storybook; rerun `pnpm start:storybook` (or `pnpm --filter expo-app storybook:generate:auto`) to regenerate.
-- For visual regression, add `CHROMATIC_PROJECT_TOKEN` to `apps/expo/.env.local` and run `pnpm chromatic` to upload the web Storybook build.
+Every component in this repo ships with a deterministic example file that generates its Storybook story and its Chromatic visual baseline. One component tree renders on iOS, Android, and Web; visual regression runs on the web render.
 
-## Getting started
+[![CI](https://github.com/Ge-limin/shad-expo-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Ge-limin/shad-expo-studio/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Storybook 10](https://img.shields.io/badge/Storybook-10-ff4785?logo=storybook&logoColor=white)](https://storybook.js.org)
+[![Expo SDK 54](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo&logoColor=white)](https://expo.dev)
 
-### Setting up the repo
+**[▶ Browse the live Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com)** — every component and story, published from CI. No install needed.
+
+![Home shell across web, iOS, and Android](apps/expo/assets/screenshots/works-on-3-interfaces.png)
+
+The name, decoded: **shad** = shadcn-style (you own the component source), **expo** = the platform, **studio** = the authoring and visual-regression harness around it.
+
+## Try it
+
+**Zero install**: browse the [hosted Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com) in your browser.
+
+**Run it locally — no Xcode, no emulator, no signing:**
+
 ```bash
-corepack enable                       # let Corepack manage the pnpm shim
-corepack install                      # install the pinned pnpm version from package.json
-pnpm install                          # install all workspace deps (preinstall will verify Node/pnpm versions)
-pnpm dlx husky                        # install git hooks (pre-commit runs pnpm format:fix; pre-push runs pnpm typecheck && pnpm lint:fix)
+pnpm install
+pnpm preview        # Storybook opens at http://localhost:6006
 ```
 
-### Setting up Expo
-1. Follow the instrcution in [expo doc](https://docs.expo.dev/get-started/set-up-your-environment) of:  
-- choose android emulator and ios simulator respectively 
-- choose development build
-- choose to not using Expo Application Services (EAS)
-- Do not run the local commands in the webpage
+That's the whole setup for browsing components. Full native builds (iOS simulator / Android emulator) are only needed when you develop the app shell itself — see [Full native development](#full-native-development) below.
 
+## Who this is for
 
-2. Follow [this doc](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md) to setup ios
+You're building a real Expo app, probably with AI coding agents in the loop. You own your component layer and you want proof — a story and a visual baseline per component — that a change didn't silently break your UI on the way to production.
 
+Who it's **not** for:
 
-3. Execute these commands
-```bash
-cd apps/expo
-pnpm storybook:generate:auto && pnpm storybook-generate # Generate the required files for Storybook
-pnpm web                              # start the web dev server to confirm the toolchain
-npx expo install expo-dev-client      # install native dev client deps for iOS/Android
-pnpm android                          # build and launch the Android dev client in the emulator
-pnpm ios                              # build and launch the iOS dev client in the simulator
+- If you want a drop-in component library with dozens of ready components, use [react-native-reusables](https://github.com/founded-labs/react-native-reusables). It's excellent and that's its job.
+- If you're a large design-system org that needs breadth, theming infrastructure, and support — this is a solo-maintained reference setup, not that.
+
+## How this compares
+
+react-native-reusables, gluestack-ui, and Tamagui give you components. This repo gives components a **workflow**: a deterministic example, a generated Storybook story, a Chromatic baseline, and CI that runs typecheck/lint/test on every PR. They're complementary — you can bring their components into this studio and put them under the same visual-regression harness.
+
+The examples files serve double duty: each `*.examples.tsx` is at once a Storybook story source and a machine-readable usage example a coding agent can consume. shadcn's ecosystem moved in this direction on the web in 2026 (MCP, llms.txt); on React Native this workflow is still rare.
+
+## How it works
+
 ```
+packages/ui/src/native/common/button.tsx            ← the component (plain StyleSheet, no styling deps)
+packages/ui/src/native/common/button.examples.tsx   ← deterministic examples: storyMeta + storyExamples
+        │
+        │  pre-commit hook (or: pnpm --filter expo-app storybook:generate:auto)
+        ▼
+apps/expo/.rnstorybook/stories/auto/common/button.examples.stories.tsx   ← generated, do not edit
+        │
+        ├── web Storybook (Vite + React Native Web) → Chromatic visual baseline
+        └── on-device Storybook (/storybook route in the Expo app)
+```
+
+1. Write a presentational component in `packages/ui/src/native/` — no hooks into navigation, network, or app state.
+2. Add a `*.examples.tsx` next to it exporting `storyMeta` + `storyExamples` with deterministic data. Copy an existing one (e.g. `button.examples.tsx`) as the template.
+3. Commit. The pre-commit hook regenerates stories and formats; CI typechecks, lints, and tests; Chromatic diffs the web Storybook against the locked baselines.
+4. The app shell (`apps/expo`) imports the same components, so what Storybook verifies is what ships.
+
+## What's inside
+
+The inventory is deliberately small. Every entry is fully wired — example, story, baseline — because adding a component here means adding all three, and the tooling generates two of them for you.
+
+| Component | Source | Example | Story | Visual baseline |
+| --- | --- | --- | --- | --- |
+| Badge | `common/badge.tsx` | ✓ | ✓ | ✓ |
+| Button | `common/button.tsx` | ✓ | ✓ | ✓ |
+| Card | `common/card.tsx` | ✓ | ✓ | ✓ |
+| TextField | `common/text-field.tsx` | ✓ | ✓ | ✓ |
+| ToggleRow | `common/toggle-row.tsx` | ✓ | ✓ | ✓ |
+| Tasks screen | `screen/tasks.tsx` | ✓ | ✓ | ✓ |
+
+Components use plain React Native `StyleSheet` — no NativeWind, no Tailwind config to wire up before they render.
+
+## Install components into your own app
+
+The components are distributed as source through a shadcn-compatible registry — you copy the code and own it, nothing to `npm install`. From your Expo project:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/button.json
+```
+
+Available items: `badge`, `button`, `card`, `text-field`, `toggle-row`, and `tasks-screen` (which pulls its four component dependencies automatically). Files land under `components/studio/` in your project.
+
+One caveat: the shadcn CLI doesn't detect Expo as a framework, so it needs a `components.json` in your project root. If you don't have one, create this minimal version first:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": { "config": "", "css": "", "baseColor": "neutral", "cssVariables": false },
+  "aliases": { "components": "@/components", "ui": "@/components/ui", "lib": "@/lib", "utils": "@/lib/utils", "hooks": "@/hooks" }
+}
+```
+
+The tailwind/aliases fields are required by the schema but unused here — every registry item declares an explicit `target` path and has zero styling dependencies.
+
+CI rebuilds the registry on every PR and fails if `public/r/` is out of sync with the component sources, so what you install always matches what Storybook and Chromatic verified.
 
 ## Daily commands
 
-### common scripts 
 ```bash
-pnpm dev                            # run turbo dev across packages in parallel
-pnpm ios                            # run expo-app iOS dev build from the repo root
-pnpm android                        # run expo-app Android dev build from the repo root
-pnpm web                            # run expo-app web dev server from the repo root
-pnpm --filter expo-app start        # start Expo bundler and choose ios/android/web in the prompt
-pnpm format:fix                     # auto-format sources via Prettier across packages
-pnpm lint:fix                       # auto-fix lint issues across packages
-pnpm lint && pnpm typecheck         # run eslint + typescript checks
-pnpm test                           # run Jest (set WATCHMAN_DISABLE=1 if watchman is unavailable)
+pnpm preview                        # web Storybook at :6006 (regenerates stories first)
+pnpm web                            # run the app shell in the browser
+pnpm start:storybook                # Expo bundler with the on-device /storybook route enabled
+pnpm lint && pnpm typecheck         # eslint + typescript checks
+pnpm test                           # Jest (set WATCHMAN_DISABLE=1 if watchman is unavailable)
+pnpm format:fix                     # Prettier across packages
+pnpm chromatic                      # build web Storybook and upload snapshots to Chromatic
 ```
 
-### Storybook
-- Native/on-device (Expo bundler, also works for web if you choose the web target): `pnpm start:storybook`, then open the `/storybook` route in the app (Expo Router). Use `pnpm web:pure` to run a pure app web bundle, or `pnpm web:storybook` to include Storybook in the web bundle explicitly.
-- Web (browser UI via Vite/React Native Web): `pnpm storybook` from the repo root (opens on port 6006).
+Husky hooks do the routine work: pre-commit regenerates stories + formats, pre-push runs typecheck + lint.
 
 ### Switching between app shell and Storybook
-- Pure app shell: run `pnpm web:pure` (or `pnpm --filter expo-app start` without setting `EXPO_PUBLIC_STORYBOOK_ENABLED`) to load only the app screens.
-- Storybook-enabled bundle: run `pnpm start:storybook` (native or web target) or `pnpm web:storybook` for web-only. Both set `EXPO_PUBLIC_STORYBOOK_ENABLED=true` before starting the Expo bundler.
-- In the running app, tap the `Open Storybook (/storybook)` button on the home screen Navigation card or in the Tasks screen header. You can also type `/storybook` in the app URL once the Storybook bundle is enabled.
-- Switch modes by restarting the bundler with or without `EXPO_PUBLIC_STORYBOOK_ENABLED`; the Storybook button hides itself when the bundle is pure app-only, so you can confirm the mode visually.
 
-### Visual guide
-- Cross-platform view (web + iOS + Android) with Storybook toggle visible:
+- `pnpm web` loads only the app screens.
+- `pnpm start:storybook` (native or web) or `pnpm web:storybook` (web only) sets `EXPO_PUBLIC_STORYBOOK_ENABLED=true` and exposes the `/storybook` route, plus an `Open Storybook` button on the home screen and Tasks header. The button hides itself in pure app mode, so you can confirm the mode visually.
 
-  ![Home shell across web, iOS, and Android](apps/expo/assets/screenshots/works-on-3-interfaces.png)
+## Visual regression with Chromatic
 
-- Home shell with jump buttons (tap `Open Storybook (/storybook)` to switch):
+CI publishes the web Storybook to Chromatic for visual diffs on in-repo PRs. Keep examples deterministic — no random data, no dates from the clock — so snapshots are stable.
 
-  ![Home navigation card showing Tasks and Storybook buttons](apps/expo/assets/screenshots/expo-app-home.png)
+To run it yourself:
 
-- Storybook running at `/storybook` after enabling `EXPO_PUBLIC_STORYBOOK_ENABLED=true`:
+1. Put `CHROMATIC_PROJECT_TOKEN=...` in `apps/expo/.env.local` (gitignored).
+2. `pnpm chromatic` from the repo root. It builds the React Native Web Storybook and uploads snapshots.
 
-  ![Storybook screen reachable from the in-app button or /storybook URL](apps/expo/assets/screenshots/react-native-storybook.png)
+## Full native development
 
-- Tasks screen with the same Storybook jump in the header:
+<details>
+<summary>iOS / Android dev builds (only needed for app-shell work, not for component browsing)</summary>
 
-  ![Tasks screen header with Storybook button](apps/expo/assets/screenshots/todo-app-shell.png)
+1. Follow the [Expo environment setup](https://docs.expo.dev/get-started/set-up-your-environment) for iOS simulator and Android emulator, choosing **development build** without EAS. Don't run the local commands on that page.
+2. For iOS signing, follow [setup-xcode-signing](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md).
+3. Then:
 
-## Development flow (recommended)
-- Build presentational UI in `packages/ui` only (no router/hooks/network/state there). Keep business logic, data, navigation, and side-effects in `apps/expo` route wrappers.
-- For each component/screen, add a `*.examples.tsx` next to it exporting `storyMeta` + `storyExamples` (deterministic data, no side-effects).
-- Run `pnpm start:storybook` (root). It regenerates stories and Storybook requires files automatically, then starts Expo with Storybook enabled. Inspect `/storybook` on device/web for quick visual checks.
-- Husky hooks already help:
-  - pre-commit: runs `pnpm --filter expo-app storybook:generate:auto` + `pnpm format:fix`
-  - pre-push: runs `pnpm typecheck` + `pnpm lint:fix`
-- Manual: run `pnpm lint && pnpm typecheck` if you skip hooks or want to check early; `pnpm format:fix` cleans up formatting.
+```bash
+cd apps/expo
+pnpm storybook:generate:auto && pnpm storybook-generate   # regenerate story files
+npx expo install expo-dev-client                          # native dev client deps
+pnpm android                                              # build + launch Android dev client
+pnpm ios                                                  # build + launch iOS dev client
+```
 
-## Design philosophy & tooling
-- Separation of concerns: `packages/ui` = presentational React Native UI only; `apps/expo/app/*` = Expo Router shells that own state, data fetching, navigation, analytics, and pass props down.
-- UI-first: prioritize stable, deterministic examples for visual regression. Avoid backend SDKs or product-specific logic in the UI package.
-- Storybook auto-gen: examples drive generated stories under `apps/expo/.rnstorybook/stories/auto/**`. Do not edit generated files; change examples and rerun `pnpm start:storybook`.
-- Chromatic: CI publishes the web Storybook to Chromatic for visual diffs; keep examples deterministic to make snapshots reliable.
+The repo pins Node ≥ 20.10 and pnpm 10.17.1 (`packageManager` field — corepack picks it up automatically; `pnpm install` also installs the git hooks).
 
-## Chromatic (visual regression)
-- We use Chromatic to publish the web Storybook. CI runs `pnpm chromatic` (which calls the `apps/expo` Chromatic script) on in-repo PRs.
-- Setup for contributors:
-  - Local: put `CHROMATIC_PROJECT_TOKEN=...` in `apps/expo/.env.local` (gitignored). The `pnpm chromatic` script auto-loads `.env.local`/`.env` and passes the token through.
-  - CI: store the same token in your CI secrets as `CHROMATIC_PROJECT_TOKEN`.
-- Run locally from repo root: `pnpm chromatic`. This builds the React Native Web Storybook and uploads snapshots to Chromatic’s CDN using the token from `.env.local`/`.env`.
+</details>
+
+## Monorepo structure
+
+```
+apps/expo/       Expo Router app shell: routes, state, data, navigation. Storybook config + generated stories.
+packages/ui/     Presentational components only + their *.examples.tsx. No router/network/app state.
+tooling/         Shared eslint / prettier / tsconfig.
+```
+
+The split is the point: the UI package stays pure and deterministic so stories and baselines stay reliable, while everything stateful lives in route wrappers under `apps/expo/app/`.
+
+## Contributing
+
+The contribution unit is a component plus its examples file — see [CONTRIBUTING.md](CONTRIBUTING.md) for the full authoring loop.
+
+## Why this exists
+
+Code volume exploded in the AI-assisted era and manual review misses subtle visual regressions. Deterministic stories plus Chromatic baselines catch the drift that slips past PR review. Separating presentational UI from product code lets a designer, or an AI agent, own the UI layer while app code stays focused on data and flows. And cross-platform Storybook coverage for React Native is still painful to wire up from scratch — this repo is that wiring, done once, as a working reference.
+
+## License
+
+[MIT](LICENSE)

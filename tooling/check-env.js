@@ -30,6 +30,7 @@ function ensureNode() {
     console.error(
       `Node ${MIN_NODE.major}.${MIN_NODE.minor}.x or newer is required. Current: ${process.version}`,
     );
+    console.error(`Fix: nvm install ${MIN_NODE.major} && nvm use ${MIN_NODE.major} (or install from https://nodejs.org)`);
     process.exit(1);
   }
 }
@@ -39,7 +40,8 @@ function ensurePnpm() {
   try {
     raw = execSync('pnpm --version', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
   } catch (error) {
-    console.error('pnpm is required but not found in PATH. Install from https://pnpm.io/installation');
+    console.error('pnpm is required but not found in PATH.');
+    console.error('Fix: corepack enable (ships with Node, picks up the pinned pnpm automatically)');
     process.exit(1);
   }
 
@@ -48,6 +50,7 @@ function ensurePnpm() {
     console.error(
       `pnpm ${MIN_PNPM.major}.${MIN_PNPM.minor}.x or newer is required. Current: ${raw.trim()}`,
     );
+    console.error('Fix: corepack enable (picks up the pinned version from package.json)');
     process.exit(1);
   }
 }

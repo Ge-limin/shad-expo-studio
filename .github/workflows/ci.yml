@@ -2,6 +2,8 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches: [main]
 
 jobs:
   quality:
@@ -44,8 +46,16 @@ jobs:
           pnpm registry:build
           git diff --exit-code registry.json public/r
 
-      - name: Publish Storybook to Chromatic
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+      - name: Publish Storybook to Chromatic (PR — fail on visual changes)
+        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         run: pnpm chromatic
+
+      # Changes reaching main were already reviewed on the PR build, so accept them
+      # as the new baseline and refresh the hosted main--*.chromatic.com Storybook.
+      - name: Publish Storybook to Chromatic (main — accept as baseline)
+        if: ${{ github.event_name == 'push' }}
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: pnpm chromatic:main

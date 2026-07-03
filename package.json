@@ -36,6 +36,7 @@
     "web": "pnpm --filter expo-app web",
     "preview": "pnpm --filter expo-app stories:generate && pnpm --filter expo-app storybook",
     "chromatic": "pnpm --filter expo-app chromatic",
+    "chromatic:main": "pnpm --filter expo-app chromatic:main",
     "registry:build": "pnpm dlx shadcn@4.12.0 build",
     "update": "pnpm update -r",
     "syncpack:list": "pnpm dlx syncpack list-mismatches",

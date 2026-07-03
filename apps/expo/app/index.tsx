@@ -44,9 +44,9 @@ export default function Home() {
         </View>
         <Text style={styles.title}>shad/expo studio</Text>
         <Text style={styles.subtitle}>
-          A visual-regression workbench for Expo / React Native components. One
-          component tree runs on iOS, Android, and web — every change is diffed
-          against accepted baselines of the web render.
+          Real React Native components under visual regression — one tree runs
+          on iOS, Android, and web, and every change is diffed against accepted
+          baselines of the web render.
         </Text>
         <View style={styles.row}>
           {storybookEnabled && (

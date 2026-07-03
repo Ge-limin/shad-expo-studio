@@ -2,14 +2,14 @@
 
 **A visual-regression studio for Expo / React Native UI components. Not a component library.**
 
-Every component in this repo ships with a deterministic example file that generates its Storybook story and its Chromatic visual baseline. One component tree renders on iOS, Android, and Web; visual regression runs on the web render.
+The components here are real React Native — `StyleSheet` and `Pressable`, no HTML/CSS. Web components plus Storybook is a solved problem with plenty of open-source examples; wiring **native** components into generated stories and CI visual baselines is not, and that wiring is what this repo is. Every component ships a deterministic example file that generates its Storybook story and its Chromatic visual baseline. One component tree renders on iOS, Android, and Web; visual regression runs on the web render.
 
 [![CI](https://github.com/Ge-limin/shad-expo-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Ge-limin/shad-expo-studio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Storybook 10](https://img.shields.io/badge/Storybook-10-ff4785?logo=storybook&logoColor=white)](https://storybook.js.org)
 [![Expo SDK 54](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo&logoColor=white)](https://expo.dev)
 
-**[▶ Browse the live Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com)** — every component and story, published from CI. No install needed.
+**[▶ Browse the live Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com)** — every native component and story, rendered via react-native-web and published from CI. No install needed.
 
 ![Home shell across web, iOS, and Android](apps/expo/assets/screenshots/works-on-3-interfaces.png)
 
@@ -17,16 +17,24 @@ The name, decoded: **shad** = shadcn-style (you own the component source), **exp
 
 ## Try it
 
-**Zero install**: browse the [hosted Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com) in your browser.
+Three depths, from zero-install browsing to the components running natively. Stop wherever you have what you came for.
 
-**Run it locally — no Xcode, no emulator, no signing:**
+**1. Look — zero install.** Browse the [hosted Storybook](https://main--6928fcf80c2ca635d2fe1c28.chromatic.com). Everything in it is a native component seen through its react-native-web render.
+
+**2. Run it locally — no Xcode, no emulator, no signing:**
 
 ```bash
 pnpm install
-pnpm preview        # Storybook opens at http://localhost:6006
+pnpm preview        # the same Storybook at http://localhost:6006
 ```
 
-That's the whole setup for browsing components. Full native builds (iOS simulator / Android emulator) are only needed when you develop the app shell itself — see [Full native development](#full-native-development) below.
+**3. Run it natively — the claim the whole repo rests on:**
+
+```bash
+pnpm ios            # or: pnpm android
+```
+
+The same component tree boots in the simulator, on-device Storybook included (the `/storybook` route). Simulator/emulator setup lives in [Full native development](#full-native-development) below. No simulator handy? `pnpm web` runs the app shell in your browser instead.
 
 ## Who this is for
 
@@ -131,7 +139,7 @@ To run it yourself:
 ## Full native development
 
 <details>
-<summary>iOS / Android dev builds (only needed for app-shell work, not for component browsing)</summary>
+<summary>iOS / Android environment setup for `pnpm ios` / `pnpm android`</summary>
 
 1. Follow the [Expo environment setup](https://docs.expo.dev/get-started/set-up-your-environment) for iOS simulator and Android emulator, choosing **development build** without EAS. Don't run the local commands on that page.
 2. For iOS signing, follow [setup-xcode-signing](https://github.com/expo/fyi/blob/main/setup-xcode-signing.md).

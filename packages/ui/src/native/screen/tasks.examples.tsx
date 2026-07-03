@@ -59,7 +59,7 @@ const getSummary = (tasks: TaskListItem[]): TaskSummary => {
 
 export const storyMeta = {
   componentName: 'TasksScreen',
-  title: 'auto/TasksScreen',
+  title: 'Screens/Task Planner',
   decorators: [
     (Story: React.ComponentType) => (
       <View style={{ flex: 1, backgroundColor: '#0f172a' }}>

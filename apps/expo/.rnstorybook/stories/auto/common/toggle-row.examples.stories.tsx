@@ -18,7 +18,7 @@ const Component =
   (() => null);
 
 const meta: Meta<typeof Component> = {
-  title: 'auto/ToggleRow (native)',
+  title: 'Components/ToggleRow',
   component: Component,
   decorators: storyMeta.decorators,
   parameters: storyMeta.parameters,

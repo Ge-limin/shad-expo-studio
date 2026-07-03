@@ -35,7 +35,7 @@ This file provides guidance to coding agent when working with code in this repos
 ## Verification Steps
 
 After implementation:
-1. **Run `pnpm --filter expo-app storybook:generate:auto && pnpm --filter expo-app storybook-generate`** - Regenerate stories and Storybook requires files
+1. **Run `pnpm --filter expo-app stories:generate`** - Regenerate stories and Storybook requires files
 2. **Run `pnpm typecheck`** - Must pass without errors
 3. **Run `pnpm lint:fix`** - Auto-fix issues
 4. **Run `pnpm format:fix`** - Format code

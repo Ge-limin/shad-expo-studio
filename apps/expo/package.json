@@ -19,12 +19,9 @@
     "build:android": "eas build -p android --profile production",
     "build:web": "eas build -p web --profile production",
     "build:all": "pnpm run build:ios && pnpm run build:android && pnpm run build:web",
-    "storybook-generate": "sb-rn-get-stories",
-    "storybook:generate:auto": "node ./.rnstorybook/generate-stories.js",
+    "stories:generate": "node ./.rnstorybook/generate-stories.js && sb-rn-get-stories && node scripts/fix-storybook-requires.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "storybook:fix-requires": "node scripts/fix-storybook-requires.js",
-    "storybook-generate:fixed": "pnpm storybook-generate && pnpm storybook:fix-requires",
     "chromatic": "cross-env-shell \"set -a; [ -f ./.env.local ] && . ./.env.local; [ -f ./.env ] && . ./.env; set +a; chromatic --project-token $CHROMATIC_PROJECT_TOKEN\""
   },
   "prettier": "@studio/prettier-config",

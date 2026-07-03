@@ -18,7 +18,7 @@ const Component =
   (() => null);
 
 const meta: Meta<typeof Component> = {
-  title: 'auto/TextField (native)',
+  title: 'Components/TextField',
   component: Component,
   decorators: storyMeta.decorators,
   parameters: storyMeta.parameters,

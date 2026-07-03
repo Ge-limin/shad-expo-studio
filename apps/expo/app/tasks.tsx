@@ -7,6 +7,8 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, TasksScreen } from '@studio/ui/native';
 import type { TaskFilter, TaskListItem, TaskSummary } from '@studio/ui/native';
 
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED !== 'false';
+
 type TaskModel = {
   id: string;
   title: string;
@@ -120,10 +122,6 @@ export default function TasksRoute() {
   const [status, setStatus] = useState<TaskFilter['status']>('all');
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
-  const storybookEnabled = useMemo(
-    () => process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true',
-    [],
-  );
 
   const summary: TaskSummary = useMemo(() => {
     const total = tasks.length;
@@ -199,17 +197,10 @@ export default function TasksRoute() {
         <Link href="/" asChild>
           <Button label="Home" size="sm" />
         </Link>
-        {storybookEnabled ? (
+        {storybookEnabled && (
           <Link href="/storybook" asChild>
             <Button label="Open Storybook" size="sm" />
           </Link>
-        ) : (
-          <Button
-            label="Storybook disabled"
-            size="sm"
-            variant="outline"
-            disabled
-          />
         )}
       </View>
       <TasksScreen

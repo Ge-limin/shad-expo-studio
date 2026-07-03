@@ -9,7 +9,7 @@ type BadgeProps = ComponentProps<typeof Badge>;
 
 export const storyMeta = {
   componentName: 'Badge',
-  title: 'auto/Badge (native)',
+  title: 'Components/Badge',
   decorators: [
     (Story: React.ComponentType) => (
       <View

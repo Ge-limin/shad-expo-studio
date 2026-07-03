@@ -6,7 +6,7 @@ import { ToggleRow } from './toggle-row';
 
 export const storyMeta = {
   componentName: 'ToggleRow',
-  title: 'auto/ToggleRow (native)',
+  title: 'Components/ToggleRow',
   decorators: [
     (Story: React.ComponentType) => (
       <View style={{ flex: 1, padding: 24, backgroundColor: '#0f172a' }}>

@@ -29,11 +29,9 @@ pnpm --filter expo-app test
 ## Storybook (simplified)
 
 - Add `*.examples.tsx` next to a UI component/screen in `packages/ui/src/native/**`, exporting `storyMeta` + `storyExamples` (deterministic, UI-only).
-- Run `pnpm start:storybook` from repo root. It auto-generates stories and the Storybook requires file, then starts Expo with Storybook enabled.
+- Run `pnpm preview` from repo root for the web Storybook, or `pnpm ios` / `pnpm android` for the on-device /storybook route (always enabled).
 - Hooks run some steps for you:
-  - pre-commit: `pnpm --filter expo-app storybook:generate:auto` + `pnpm format:fix`
+  - pre-commit: `pnpm --filter expo-app stories:generate` + `pnpm format:fix`
   - pre-push: `pnpm typecheck` + `pnpm lint:fix`
-- If CI needs artifacts only, you can still run the generators directly:
-  - `pnpm --filter expo-app storybook:generate:auto` (writes `.rnstorybook/stories/auto/**`)
-  - `pnpm --filter expo-app storybook-generate` (writes `.rnstorybook/storybook.requires.ts`)
-- Do not edit generated files; change the example source and re-run `pnpm start:storybook` (or the generators).
+- To regenerate artifacts without starting anything: `pnpm --filter expo-app stories:generate` (writes `.rnstorybook/stories/auto/**` and `.rnstorybook/storybook.requires.ts`)
+- Do not edit generated files; change the example source and re-run the generator.

@@ -18,7 +18,7 @@ const Component =
   (() => null);
 
 const meta: Meta<typeof Component> = {
-  title: 'auto/TasksScreen',
+  title: 'Screens/Task Planner',
   component: Component,
   decorators: storyMeta.decorators,
   parameters: storyMeta.parameters,

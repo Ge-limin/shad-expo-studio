@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 // Auto-fix Storybook's generated storybook.requires.ts when it emits undefined previewAnnotations.
-// Idempotent: safe to run after storybook-generate.
+// Idempotent: safe to run after sb-rn-get-stories.
 
 const fs = require('fs');
 const path = require('path');

@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Welcome" />
+
+# shad/expo studio
+
+A visual-regression workbench for Expo / React Native components. Everything
+in this Storybook is a **native component** — React Native `StyleSheet` and
+`Pressable`, no HTML/CSS — rendered here through react-native-web so you can
+browse it without a simulator. One component tree runs on iOS, Android, and
+web; every pull request is diffed pixel-by-pixel against accepted baselines
+captured from the web render.
+
+## How a component becomes a guarded baseline
+
+1. **Write a deterministic example.** Each component in `packages/ui` ships a
+   `*.examples.tsx` file next to its source — fixed props, no randomness, no
+   network.
+2. **Stories are generated, not written.** `pnpm preview` turns every example
+   into the Storybook stories you see in the sidebar. Nobody hand-maintains
+   story files.
+3. **Chromatic guards the result.** CI publishes this Storybook and fails the
+   pull request if any story's rendering changes without an accepted new
+   baseline.
+
+## What's in the sidebar
+
+- **Components** — the five UI primitives under test (Badge, Button, Card,
+  TextField, ToggleRow), each story a deterministic example.
+- **Screens** — a complete task-planner screen composed from those
+  primitives, snapshotted as a whole.
+
+## Run it yourself
+
+```bash
+git clone https://github.com/Ge-limin/shad-expo-studio && cd shad-expo-studio
+pnpm install && pnpm preview   # this Storybook, locally, at :6006
+pnpm ios                       # the same tree, native, in the simulator (or: pnpm android)
+```
+
+No simulator handy? `pnpm web` runs the same components inside the Expo app
+shell in your browser.
+
+## Take the components home
+
+The components are distributed as a shadcn-compatible registry — copy the
+source into your own Expo app and own it:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/Ge-limin/shad-expo-studio/main/public/r/button.json
+```
+
+Full instructions in the
+[README](https://github.com/Ge-limin/shad-expo-studio#readme). Looking for a
+big component catalog instead of a regression workbench? You want
+[react-native-reusables](https://github.com/founded-labs/react-native-reusables).

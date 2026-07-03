@@ -9,7 +9,7 @@ type TextFieldProps = ComponentProps<typeof TextField>;
 
 export const storyMeta = {
   componentName: 'TextField',
-  title: 'auto/TextField (native)',
+  title: 'Components/TextField',
   decorators: [
     (Story: React.ComponentType) => (
       <View style={{ flex: 1, padding: 24, backgroundColor: '#0f172a' }}>

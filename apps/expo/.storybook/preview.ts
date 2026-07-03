@@ -15,6 +15,26 @@ const preview: Preview = {
       // 'off' - skip a11y checks entirely
       test: 'todo',
     },
+
+    // Components ship dark-surface styles; match the canvas so stories render
+    // on the surface they are designed for.
+    backgrounds: {
+      options: {
+        slate: { name: 'Slate', value: '#0f172a' },
+        light: { name: 'Light', value: '#f8fafc' },
+      },
+    },
+    layout: 'fullscreen',
+
+    options: {
+      storySort: {
+        order: ['Welcome', 'Components', 'Screens'],
+      },
+    },
+  },
+
+  initialGlobals: {
+    backgrounds: { value: 'slate' },
   },
 };
 

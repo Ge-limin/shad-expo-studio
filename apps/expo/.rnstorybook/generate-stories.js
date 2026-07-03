@@ -151,7 +151,7 @@ function escapeForSingleQuotes(value) {
 
 function writeStory({ moduleSpecifier, relOutputPath, exampleKeys, storyMetaTitle }) {
   const fallbackName = relOutputPath.replace(/\.stories\.tsx?$/, '');
-  const fallbackTitle = `auto/${fallbackName}`;
+  const fallbackTitle = `Ungrouped/${fallbackName}`;
   const metaTitle = storyMetaTitle ?? fallbackTitle;
 
   const exportsBlock = exampleKeys

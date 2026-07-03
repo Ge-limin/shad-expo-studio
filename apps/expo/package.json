@@ -22,7 +22,8 @@
     "stories:generate": "node ./.rnstorybook/generate-stories.js && sb-rn-get-stories && node scripts/fix-storybook-requires.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "cross-env-shell \"set -a; [ -f ./.env.local ] && . ./.env.local; [ -f ./.env ] && . ./.env; set +a; chromatic --project-token $CHROMATIC_PROJECT_TOKEN\""
+    "chromatic": "cross-env-shell \"set -a; [ -f ./.env.local ] && . ./.env.local; [ -f ./.env ] && . ./.env; set +a; chromatic --project-token $CHROMATIC_PROJECT_TOKEN\"",
+    "chromatic:main": "cross-env-shell \"set -a; [ -f ./.env.local ] && . ./.env.local; [ -f ./.env ] && . ./.env; set +a; chromatic --project-token $CHROMATIC_PROJECT_TOKEN --auto-accept-changes\""
   },
   "prettier": "@studio/prettier-config",
   "jest": {

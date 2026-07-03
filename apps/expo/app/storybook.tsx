@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import StorybookUI from '../.rnstorybook';
 
-const enabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
+const enabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED !== 'false';
 
 export default function StorybookRoute() {
   if (enabled) {
@@ -13,8 +13,8 @@ export default function StorybookRoute() {
     <View style={styles.container}>
       <Text style={styles.title}>Storybook disabled</Text>
       <Text style={styles.subtitle}>
-        Set EXPO_PUBLIC_STORYBOOK_ENABLED=true and restart the bundler to load
-        Storybook.
+        Remove EXPO_PUBLIC_STORYBOOK_ENABLED=false and restart the bundler to
+        load Storybook.
       </Text>
     </View>
   );

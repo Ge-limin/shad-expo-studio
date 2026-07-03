@@ -18,7 +18,7 @@ const Component =
   (() => null);
 
 const meta: Meta<typeof Component> = {
-  title: 'auto/Card (native)',
+  title: 'Components/Card',
   component: Component,
   decorators: storyMeta.decorators,
   parameters: storyMeta.parameters,

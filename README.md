@@ -49,7 +49,7 @@ The examples files serve double duty: each `*.examples.tsx` is at once a Storybo
 packages/ui/src/native/common/button.tsx            ← the component (plain StyleSheet, no styling deps)
 packages/ui/src/native/common/button.examples.tsx   ← deterministic examples: storyMeta + storyExamples
         │
-        │  pre-commit hook (or: pnpm --filter expo-app storybook:generate:auto)
+        │  pre-commit hook (or: pnpm --filter expo-app stories:generate)
         ▼
 apps/expo/.rnstorybook/stories/auto/common/button.examples.stories.tsx   ← generated, do not edit
         │
@@ -108,8 +108,7 @@ CI rebuilds the registry on every PR and fails if `public/r/` is out of sync wit
 
 ```bash
 pnpm preview                        # web Storybook at :6006 (regenerates stories first)
-pnpm web                            # run the app shell in the browser
-pnpm start:storybook                # Expo bundler with the on-device /storybook route enabled
+pnpm web                            # run the app shell in the browser (includes the /storybook route)
 pnpm lint && pnpm typecheck         # eslint + typescript checks
 pnpm test                           # Jest (set WATCHMAN_DISABLE=1 if watchman is unavailable)
 pnpm format:fix                     # Prettier across packages
@@ -118,10 +117,7 @@ pnpm chromatic                      # build web Storybook and upload snapshots t
 
 Husky hooks do the routine work: pre-commit regenerates stories + formats, pre-push runs typecheck + lint.
 
-### Switching between app shell and Storybook
-
-- `pnpm web` loads only the app screens.
-- `pnpm start:storybook` (native or web) or `pnpm web:storybook` (web only) sets `EXPO_PUBLIC_STORYBOOK_ENABLED=true` and exposes the `/storybook` route, plus an `Open Storybook` button on the home screen and Tasks header. The button hides itself in pure app mode, so you can confirm the mode visually.
+The app shell always exposes the on-device `/storybook` route (and an `Open Storybook` button on the home and Tasks screens) — the studio is the product. Set `EXPO_PUBLIC_STORYBOOK_ENABLED=false` to hide it, e.g. when reusing the shell as an app template.
 
 ## Visual regression with Chromatic
 
@@ -143,7 +139,7 @@ To run it yourself:
 
 ```bash
 cd apps/expo
-pnpm storybook:generate:auto && pnpm storybook-generate   # regenerate story files
+pnpm stories:generate                                     # regenerate story files
 npx expo install expo-dev-client                          # native dev client deps
 pnpm android                                              # build + launch Android dev client
 pnpm ios                                                  # build + launch iOS dev client

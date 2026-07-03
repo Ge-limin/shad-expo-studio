@@ -18,7 +18,7 @@ const Component =
   (() => null);
 
 const meta: Meta<typeof Component> = {
-  title: 'auto/Badge (native)',
+  title: 'Components/Badge',
   component: Component,
   decorators: storyMeta.decorators,
   parameters: storyMeta.parameters,

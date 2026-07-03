@@ -8,7 +8,7 @@ import { Card } from './card';
 
 export const storyMeta = {
   componentName: 'Card',
-  title: 'auto/Card (native)',
+  title: 'Components/Card',
   decorators: [
     (Story: React.ComponentType) => (
       <View

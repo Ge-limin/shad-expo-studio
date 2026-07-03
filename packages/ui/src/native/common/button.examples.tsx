@@ -9,7 +9,7 @@ type ButtonProps = ComponentProps<typeof Button>;
 
 export const storyMeta = {
   componentName: 'Button',
-  title: 'auto/Button (native)',
+  title: 'Components/Button',
   decorators: [
     (Story: React.ComponentType) => (
       <View

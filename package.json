@@ -47,7 +47,7 @@
   "devDependencies": {
     "@manypkg/cli": "^0.25.1",
     "prettier": "^3.6.2",
-    "turbo": "2.5.8",
+    "turbo": "2.9.14",
     "typescript": "^5.9.3"
   }
 }

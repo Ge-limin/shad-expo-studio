@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & ideas
+    url: https://github.com/Ge-limin/shad-expo-studio/discussions
+    about: Open-ended questions, setup help, and ideas go in Discussions, not issues.

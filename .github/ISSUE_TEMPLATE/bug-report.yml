@@ -1,0 +1,47 @@
+name: Bug report
+description: Something in the studio, a component, or the app shell isn't working
+title: "[bug] <short description>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected vs. what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. see error
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options:
+        - Web Storybook (pnpm preview)
+        - App shell (pnpm ios / android / web)
+        - Story generation / registry build
+        - CI / Chromatic
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Platforms affected
+      options:
+        - label: iOS
+        - label: Android
+        - label: Web
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: OS, Node version, pnpm version, Expo SDK if relevant

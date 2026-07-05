@@ -1,0 +1,45 @@
+name: Add a component
+description: Propose a new presentational component for the studio (component + examples)
+title: "Add a <Name> component"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The unit of contribution here is a **component plus its examples file**. The tooling
+        generates the Storybook story and the Chromatic baseline for you — you write the
+        component and its examples. Full authoring loop: [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md).
+  - type: input
+    id: name
+    attributes:
+      label: Component name
+      placeholder: e.g. Switch, Avatar, Checkbox
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What it is and why it belongs in the studio
+      placeholder: One or two sentences. Presentational only — props in, UI out.
+    validations:
+      required: true
+  - type: textarea
+    id: states
+    attributes:
+      label: Which states will the examples cover?
+      description: One example per visual state worth a baseline.
+      placeholder: |
+        - Default
+        - Disabled
+        - ... (each maps to one entry in storyExamples)
+    validations:
+      required: true
+  - type: checkboxes
+    id: contract
+    attributes:
+      label: Authoring contract
+      options:
+        - label: Plain `StyleSheet` only — no navigation/network/app-state imports, no NativeWind
+          required: true
+        - label: Examples are deterministic — no `Math.random()`, `new Date()`, or network (Chromatic diffs pixels)
+          required: true

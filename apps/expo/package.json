@@ -128,8 +128,8 @@
     "react-native-svg-transformer": "^1.5.0",
     "react-test-renderer": "19.1.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.5",
-    "vitest": "^4.1.9"
+    "vite": "^7.3.7",
+    "vitest": "^5.0.5"
   },
   "private": true
 }
